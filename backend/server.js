@@ -20,7 +20,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 
 // MongoDb Connection
-//mongoose.connect(process.env.DB_KEY,  { useNewUrlParser: true });
+mongoose.connect(process.env.DB_KEY,  { useNewUrlParser: true, dbName: process.env.DB_NAME });
 
 // Apply Express routes below
 // Ex.: app.use('/routeCategory/routeName', routeRequireVar);
