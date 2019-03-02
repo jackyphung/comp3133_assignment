@@ -1,32 +1,31 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
 
-app.set('view engine', 'ejs')
+const app = express();
+const mongoose = require('mongoose');
 
-app.use(express.static('public'))
+var apiRoutes = {
+    //Ex.: routeName: require('routes/path/to/route/file'),
+};
+// require the main route for the app
+// the main route will be used to render the index.html to all routes besides apiRoutes
+var appRoute = require('./routes/main');
 
-app.get('/', (req, res) => {
-    res.render('index')
-})
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
+app.set('views', path.join(__dirname, '../client/public'));
+app.use(express.static(path.join(__dirname, '../client/public')));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 
-server = app.listen(3000)
+// MongoDb Connection
+//mongoose.connect(process.env.DB_KEY,  { useNewUrlParser: true });
 
-const io = require('socket.io')(server)
+// Apply Express routes below
+// Ex.: app.use('/routeCategory/routeName', routeRequireVar);
+// Note: when applying API routes, make sure it is done
+//       before applying the appRoute itself
+app.use('/', appRoute);
 
-io.on('connection', (socket) => {
-    console.log('New user connected')
-
-    socket.username = "Anonymous"
-
-    socket.on('change_username', (data) => {
-        socket.username = data.username
-    })
-
-    socket.on('new_message', (data) => {
-        io.sockets.emit('new_message', {message : data.message, username : socket.username});
-    })
-
-    socket.on('disconnect', function() {
-        console.log('user disconnected');
-    })
-})
+module.exports = app;
