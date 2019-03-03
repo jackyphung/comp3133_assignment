@@ -8,6 +8,8 @@ $(function () {
     var chatroom = $("#chatroom");
     var typing_feedback = $("#typing-feedback");
     var connect_feedback = $('#connect-feedback');
+    var join_room = $("#join_room");
+    var leave_room = $("#leave_room")
     var typingTimeout;
     var connectTimeout;
     var disconnectTimeout;
@@ -74,4 +76,12 @@ $(function () {
         clearTimeout(disconnectTimeout);
         disconnectTimeout = setTimeout(timeoutDisconnect, 2000);
     });
+
+    join_room.click(function(){
+        socket.emit('join_room', 'room1');
+    })
+
+    leave_room.click(function(){
+        socket.emit('leave_room', 'room1')
+    })
 });

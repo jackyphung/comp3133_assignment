@@ -29,6 +29,16 @@ module.exports = {
       socket.on('typing', (data) => {
         socket.broadcast.emit('typing', { typing: data.typing, username: socket.username });
       });
+
+      socket.on('join_room', (data) => {
+        socket.join(data);
+        console.log("room switched");
+      })
+
+      socket.on('leave_room', (data) => {
+        socket.leave(data);
+        console.log("room left");
+      })
     });
   }
 }
