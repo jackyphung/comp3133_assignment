@@ -6,7 +6,7 @@ $(function () {
     var send_message = $("#send_message");
     var send_username = $("#send_username");
     var chatroom = $("#chatroom");
-    var feedback = document.querySelector("#feedback");
+    var feedback = $("#feedback");
 
     send_message.click(function () {
         socket.emit('new_message', { message: message.val() });
@@ -28,6 +28,6 @@ $(function () {
 
     // Listen on typing
     socket.on('typing', (data) => {
-        feedback.innerHTML = "<p><i>" + data.username + " is typing a message..." + "</i></p>";
+        feedback.html("<p><i>" + data.username + " is typing a message..." + "</i></p>");
     });
 });
