@@ -6,7 +6,12 @@ $(function () {
     var send_message = $("#send_message");
     var send_username = $("#send_username");
     var chatroom = $("#chatroom");
-    var feedback = $("#feedback");
+    var typing_feedback = $("#typing-feedback");
+    var typingTimeout;
+
+    function timeoutTyping() {
+        socket.emit("typing", { typing: false });
+    }
 
     send_message.click(function () {
         socket.emit('new_message', { message: message.val() });
@@ -15,7 +20,8 @@ $(function () {
     socket.on("new_message", (data) => {
         console.log(data)
         chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>");
-    })
+    });
+
     send_username.click(function () {
         console.log(username.val())
         socket.emit('change_username', { username: username.val() });
@@ -23,11 +29,16 @@ $(function () {
 
     // Emit typing
     message.bind("keypress", () => {
-        socket.emit('typing');
+        socket.emit('typing', { typing: true });
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(timeoutTyping, 2000);
     });
 
     // Listen on typing
     socket.on('typing', (data) => {
-        feedback.html("<p><i>" + data.username + " is typing a message..." + "</i></p>");
+        if (data.typing)
+            typing_feedback.html("<p><i>" + data.username + " is typing a message..." + "</i></p>");
+        else
+            typing_feedback.html("");
     });
 });

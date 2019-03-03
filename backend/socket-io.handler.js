@@ -21,7 +21,7 @@ module.exports = {
 
       // listen on typing
       socket.on('typing', (data) => {
-        socket.broadcast.emit('typing', { username: socket.username });
+        socket.broadcast.emit('typing', { typing: data.typing, username: socket.username });
       });
     });
   }
