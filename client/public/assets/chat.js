@@ -7,10 +7,22 @@ $(function () {
     var send_username = $("#send_username");
     var chatroom = $("#chatroom");
     var typing_feedback = $("#typing-feedback");
+    var connect_feedback = $('#connect-feedback');
     var typingTimeout;
+    var connectTimeout;
+    var disconnectTimeout;
 
     function timeoutTyping() {
         socket.emit("typing", { typing: false });
+    }
+    
+    function timeoutConnect() {
+        $(".connect").remove();
+    }
+
+    function timeoutDisconnect() {
+        $(".disconnect").remove();
+        
     }
 
     send_message.click(function () {
@@ -37,17 +49,29 @@ $(function () {
     // Listen on typing
     socket.on('typing', (data) => {
         if (data.typing)
-            typing_feedback.html("<p><i>" + data.username + " is typing a message..." + "</i></p>");
+            typing_feedback.html("<p><em><strong>" + data.username + "</strong> is typing a message..." + "</em></p>");
         else
             typing_feedback.html("");
     });
 
     socket.on('new_connection', (data) => {
         console.log(data)
-        chatroom.append("<p>" + data.username + "" + data.message + "</p>" )
-    })
+        if (connect_feedback.find(".connect").length)
+            $(".connect").html("<strong>" + data.username + "</strong>" + data.message);
+        else
+            connect_feedback.append("<p class='connect'><strong>" + data.username + "</strong>" + data.message + "</p>" );
+
+        clearTimeout(connectTimeout);
+        connectTimeout = setTimeout(timeoutConnect, 2000);
+    });
 
     socket.on('disconnect_message', (data) => {
-        chatroom.append("<p>" + data.username + "" + data.message + "</p>")
-    })
+        if (connect_feedback.find("p.disconnect").length)
+            $(".disconnect").html("<strong>" + data.username + "</strong>" + data.message);
+        else
+            connect_feedback.append("<p class='disconnect'><strong>" + data.username + "</strong>" + data.message + "</p>");
+
+        clearTimeout(disconnectTimeout);
+        disconnectTimeout = setTimeout(timeoutDisconnect, 2000);
+    });
 });

@@ -22,7 +22,7 @@ module.exports = {
 
       socket.on('disconnect', function () {
         console.log('user disconnected');
-        socket.broadcast.emit('disconnect_message', { message: 'has disconnected', username: socket.username});
+        socket.broadcast.emit('disconnect_message', { message: ' has disconnected', username: socket.username});
       });
 
       // listen on typing
