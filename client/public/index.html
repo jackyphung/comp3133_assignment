@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta http-equiv="Content-Type" const="text/html;charset=UTF-8" />
   <link href="http://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet" type="text/css">
@@ -8,32 +7,31 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
   <title>Simple Chat App</title>
 </head>
-
 <body>
-  <header>
-    <h1>Super Chat</h1>
-  </header>
+  <div class="content-area padding-15">
+    <div class="content-body">
+      <header class="content-block">
+        <h1>Super Chat</h1>
+        <section class="options">
+          <div id="change_username">
+            <input id="username" type="text" />
+            <button id="send_username" type="button">Change username</button>
+          </div>
+        </section>
+      </header>
 
-  <section>
-    <div id="change_username">
-      <input id="username" type="text" />
-      <button id="send_username" type="button">Change username</button>
+      <section id="chatroom" class="content-block">
+        <section id="typing-feedback"></section>
+        <section id="connect-feedback"></section>
+      </section>
+
+      <section id="chat_input" class="chat_input content-block">
+        <input id="message" class="vertical-align" type="text" />
+        <button id="send_message" class="vertical-align" type="button">Send</button>
+      </section>
     </div>
-  </section>
-
-  <section id="chatroom">
-    <section id="feedback"></section>
-  </section>
-
-
-
-  <section id="input_zone">
-    <input id="message" class="vertical-align" type="text" />
-    <button id="send_message" class="vertical-align" type="button">Send</button>
-  </section>
-
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="assets/chat.js"></script>
+  </div>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="assets/chat.js"></script>
 </body>
-
 </html>
