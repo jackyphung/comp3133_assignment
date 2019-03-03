@@ -41,4 +41,13 @@ $(function () {
         else
             typing_feedback.html("");
     });
+
+    socket.on('new_connection', (data) => {
+        console.log(data)
+        chatroom.append("<p>" + data.username + "" + data.message + "</p>" )
+    })
+
+    socket.on('disconnect_message', (data) => {
+        chatroom.append("<p>" + data.username + "" + data.message + "</p>")
+    })
 });

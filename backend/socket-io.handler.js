@@ -7,6 +7,11 @@ module.exports = {
 
       socket.username = "Anonymous";
 
+      socket.send('hi');
+
+      //socket.emit('new_connection', { message: " connected", username: socket.username });
+      io.emit('new_connection', { message: " has connected", username: socket.username });
+
       socket.on('change_username', (data) => {
         socket.username = data.username
       });
@@ -17,6 +22,7 @@ module.exports = {
 
       socket.on('disconnect', function () {
         console.log('user disconnected');
+        socket.broadcast.emit('disconnect_message', { message: 'has disconnected', username: socket.username});
       });
 
       // listen on typing
