@@ -196,7 +196,9 @@ p.message {
 
 input#message {
     display: inline-block;
-    flex-basis: 43em;
+    max-width: 75%;
+    flex-grow: 1;
+
     height: 70%;
 
     border: none;
