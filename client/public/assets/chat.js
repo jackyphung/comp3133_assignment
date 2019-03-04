@@ -6,6 +6,7 @@ $(function () {
     var send_message = $("#send_message");
     var send_username = $("#send_username");
     var chatroom = $("#chatroom");
+    var chatroom2 = $("#chatroom2")
     var typing_feedback = $("#typing-feedback");
     var connect_feedback = $('#connect-feedback');
     var join_room = $("#join_room");
@@ -81,7 +82,17 @@ $(function () {
         socket.emit('join_room', 'room1');
     })
 
+    socket.on('join_message', (data) => {
+        chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>");
+        console.log(data)
+    })
+
     leave_room.click(function(){
         socket.emit('leave_room', 'room1')
+    })
+
+    socket.on('leave_message', (data) => {
+        chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>");
+        console.log(data)
     })
 });

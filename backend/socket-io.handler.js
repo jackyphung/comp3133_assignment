@@ -31,12 +31,21 @@ module.exports = {
       });
 
       socket.on('join_room', (data) => {
-        socket.join(data);
+        socket.broadcast.emit('leave_message', { message: ' has left the room', username: socket.username});
+        socket.join(data, () => {
+          console.log(data);
+          io.to(data).emit('join_message', { message: ' has joined the room', username: socket.username});
+        });
+        socket
+
         console.log("room switched");
       })
 
       socket.on('leave_room', (data) => {
-        socket.leave(data);
+        socket.leave(data, () => {
+          console.log(data);
+          io.to(data).emit('leave_message', { message: ' has joined the room', username: socket.username});
+        });
         console.log("room left");
       })
     });
