@@ -25,11 +25,11 @@ $(function () {
 
     function timeoutDisconnect() {
         $(".disconnect").remove();
-        
     }
 
-    send_message.click(function () {
-        socket.emit('new_message', { message: message.val() });
+    send_message.click(() => {
+        if (message.val().length > 0)
+            socket.emit('new_message', { message: message.val() });
     })
 
     socket.on("new_message", (data) => {
@@ -43,10 +43,20 @@ $(function () {
     });
 
     // Emit typing
-    message.bind("keypress", () => {
+    message.bind("keypress", (e) => {
         socket.emit('typing', { typing: true });
         clearTimeout(typingTimeout);
         typingTimeout = setTimeout(timeoutTyping, 2000);
+    });
+
+    message.on("keyup", (e) => {
+        if (e.keyCode == 13) {
+            // Submit message
+            if (message.val().length > 0) {
+                send_message.click();
+                message.val("");
+            }
+        }
     });
 
     // Listen on typing
