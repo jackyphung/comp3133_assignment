@@ -17,3 +17,16 @@ router.get('', (req, res, next) => {
         res.send(JSON.stringify(hist));
     });
 })
+
+router.get(':/room', (req, res, next) => {
+    res.contentType('application/json');
+    if(req.params.room_name) {
+        console.log('get room history list')
+        History.find({room_name: req.params.room_name}, (err, hist) => {
+            if(err)
+                throw err
+            else
+                res.send(JSON.stringify(hist))
+        })
+    }
+})
