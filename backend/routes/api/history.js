@@ -18,7 +18,7 @@ router.get('', (req, res, next) => {
     });
 })
 
-router.get(':/room', (req, res, next) => {
+router.get('/:room', (req, res, next) => {
     res.contentType('application/json');
     if(req.params.room_name) {
         console.log('get room history list')
