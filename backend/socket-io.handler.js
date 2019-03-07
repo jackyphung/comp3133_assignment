@@ -50,23 +50,25 @@ module.exports = {
       });
 
       socket.on('join_room', (data) => {
-        socket.leave(socket.user["room"], () => {
-          console.log(`${socket.user["name"]} left #${data.room}`);
-        });
-        io.to(socket.user["room"]).emit('leave_message', { 
-          room: data.room,
-          username: socket.user["name"], 
-          message: ` has left the ${socket.user["room"]}`, 
-        });
-        
-        socket.user["room"] = data.room;
-        socket.join(data.room, () => {
-          console.log(`${socket.user["name"]} joined #${data.room}`);
-          io.to(data.room).emit('join_message', { room: data.room, 
-            message: ` has joined #${data.room}`, 
-            username: socket.user["name"]
+        if (data.room !== socket.user["room"]) {
+          socket.leave(socket.user["room"], () => {
+            console.log(`${socket.user["name"]} left #${data.room}`);
           });
-        });
+          io.to(socket.user["room"]).emit('leave_message', { 
+            room: data.room,
+            username: socket.user["name"], 
+            message: ` has left the ${socket.user["room"]}`, 
+          });
+          
+          socket.user["room"] = data.room;
+          socket.join(data.room, () => {
+            console.log(`${socket.user["name"]} joined #${data.room}`);
+            io.to(data.room).emit('join_message', { room: data.room, 
+              message: ` has joined #${data.room}`, 
+              username: socket.user["name"]
+            });
+          });
+        }
       })
 
       socket.on('leave_room', (data) => {
