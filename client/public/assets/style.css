@@ -214,10 +214,20 @@ button#send_message {
     height: 70%;
     width: 5em;
 
-    background: lightgrey;
+    background: rgb(211, 211, 211);
     border: none;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 
     outline: none;
+
+    transition: all ease-in-out 0.05s;
+}
+
+button#send_message:hover {
+    background: rgb(231, 231, 231);
+}
+
+button#send_message:active {
+    background: rgb(201, 201, 201);
 }

@@ -30,8 +30,9 @@ $(function () {
   }
 
   send_message.click(() => {
-    if (message.val().length > 0) {
-      socket.emit('new_message', { message: message.val(), room: current_room });
+    let new_message = message.val().trim();
+    if (new_message.length > 0) {
+      socket.emit('new_message', { message: new_message, room: current_room });
       message.val("");
     }
   })
