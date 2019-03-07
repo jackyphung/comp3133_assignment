@@ -58,6 +58,7 @@ module.exports = {
           username: socket.user["name"], 
           message: ` has left the ${socket.user["room"]}`, 
         });
+        
         socket.user["room"] = data.room;
         socket.join(data.room, () => {
           console.log(`${socket.user["name"]} joined #${data.room}`);

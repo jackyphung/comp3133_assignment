@@ -30,8 +30,10 @@ $(function () {
   }
 
   send_message.click(() => {
-    if (message.val().length > 0)
+    if (message.val().length > 0) {
       socket.emit('new_message', { message: message.val(), room: current_room });
+      message.val("");
+    }
   })
 
   socket.on("new_message", (data) => {
@@ -56,7 +58,6 @@ $(function () {
       // Submit message
       if (message.val().length > 0) {
         send_message.click();
-        message.val("");
       }
     }
   });
@@ -98,6 +99,7 @@ $(function () {
 
   socket.on('join_message', (data) => {
     chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>");
+    chatroom.animate({ scrollTop: chatroom.height() }, "fast")
   })
 
   leave_room.click(() => {
