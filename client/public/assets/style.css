@@ -284,6 +284,11 @@ button#send_message:active {
     background: rgb(201, 201, 201);
 }
 
+button#send_message:disabled {
+    color: rgb(120, 120, 120);
+    background: rgb(191, 191, 191);
+}
+
 /**************************/
 /* Modal Styling          */
 /**************************/
@@ -341,10 +346,6 @@ button#send_message:active {
     background: rgba(240, 240, 240);
 
     user-select: none;
-}
-
-.modal-content .modal-body {
-
 }
 
 .join-room {

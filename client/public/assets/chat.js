@@ -80,6 +80,7 @@ $(function () {
     username.val(data.username);
     message.attr("disabled", true);
     message.attr("placeholder", "You are currently not connected to a room.");
+    send_message.attr("disabled", true);
     if (current_room != "") {
       socket.emit("join_room", { room: current_room });
     } else {
@@ -109,6 +110,7 @@ $(function () {
   socket.on('join_message', (data) => {
     message.removeAttr("disabled");
     message.removeAttr("placeholder");
+    send_message.removeAttr("disabled");
     if (connect_feedback.find(".connect").length)
       $(".connect").html("<strong>" + data.username + "</strong>" + data.message);
     else
@@ -127,6 +129,7 @@ $(function () {
   socket.on('leave_message', (data) => {
     message.attr("disabled", true);
     message.attr("placeholder", "You are currently not connected to a room.");
+    send_message.attr("disabled", true);
     if (connect_feedback.find("p.disconnect").length)
       $(".disconnect").html("<strong>" + data.username + "</strong>" + data.message);
     else
