@@ -2,6 +2,7 @@
 ### 100801047 - Jacky Phung
 ### 100998164 - Jullian Anthony Sy-Lucero
 #### Heroku App Deployment: https://comp3133-fs-assignment.herokuapp.com/
+#### Git Repository: https://github.com/jaepun/comp3133_assignment
 
 ## Initial Setup
 1. Run `npm install` in your command line interface. That's it!
