@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const port = process.env.port || 3030;
 
 var apiRoutes = {
+    main: require('./routes/api/api.main'),
     history: require('./routes/api/history'),
     event: require('./routes/api/eventlog')
 };
@@ -30,6 +31,7 @@ mongoose.set('useFindAndModify', false);
 // Apply Express routes below
 app.use('/api/history', apiRoutes.history);
 app.use('/api/event', apiRoutes.event);
+app.use('/api/', apiRoutes.main);
 app.use('/', appRoute);
 
 module.exports = app;
