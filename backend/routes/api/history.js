@@ -18,15 +18,19 @@ router.get('', (req, res, next) => {
     });
 })
 
-router.get('/:room', (req, res, next) => {
+router.get('/:room_name', (req, res, next) => {
     res.contentType('application/json');
     if(req.params.room_name) {
         console.log('get room history list')
-        History.find({room_name: req.params.room_name}, (err, hist) => {
+        History.findOne({room: req.params.room_name}, (err, hist) => {
             if(err)
                 throw err
+            if(hist == null) 
+                res.send(JSON.stringify({ message: `The user "${req.params.room_name}" does not exist in the database` }));
             else
                 res.send(JSON.stringify(hist))
         })
     }
 })
+
+module.exports = router;

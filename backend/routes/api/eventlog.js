@@ -17,3 +17,5 @@ router.get('', (req, res, next) => {
         res.send(JSON.stringify(elog));
     });
 })
+
+module.exports = router;

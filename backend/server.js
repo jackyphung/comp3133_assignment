@@ -6,7 +6,8 @@ const app = express();
 const mongoose = require('mongoose');
 
 var apiRoutes = {
-    //Ex.: routeName: require('routes/path/to/route/file'),
+    history: require('./routes/api/history'),
+    event: require('./routes/api/eventlog')
 };
 // require the main route for the app
 // the main route will be used to render the index.html to all routes besides apiRoutes
@@ -23,9 +24,8 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 mongoose.connect(process.env.DB_KEY,  { useNewUrlParser: true, dbName: process.env.DB_NAME });
 
 // Apply Express routes below
-// Ex.: app.use('/routeCategory/routeName', routeRequireVar);
-// Note: when applying API routes, make sure it is done
-//       before applying the appRoute itself
+app.use('/api/history', apiRoutes.history);
+app.use('/api/event', apiRoutes.event);
 app.use('/', appRoute);
 
 module.exports = app;
