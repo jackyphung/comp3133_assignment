@@ -27,8 +27,7 @@ router.get('/:room', (req, res, next) => {
                 throw err
             if(hist == null) 
                 res.send(JSON.stringify({ message: `The user "${req.params.room_name}" does not exist in the database` }));
-            else
-                res.send(JSON.stringify(hist))
+            res.send(JSON.stringify(hist))
         })
     }
 })

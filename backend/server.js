@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
 
+//heroku port
+const port = process.env.port || 3030;
+
 var apiRoutes = {
     history: require('./routes/api/history'),
     event: require('./routes/api/eventlog')
