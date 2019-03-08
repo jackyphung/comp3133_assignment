@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 
 // MongoDb Connection
 mongoose.connect(process.env.DB_KEY,  { useNewUrlParser: true, dbName: process.env.DB_NAME });
+mongoose.set('useFindAndModify', false);
 
 // Apply Express routes below
 app.use('/api/history', apiRoutes.history);
