@@ -87,17 +87,6 @@ $(function () {
     }
   });
 
-  socket.on('new_connection', (data) => {
-    console.log(data)
-    if (connect_feedback.find(".connect").length)
-      $(".connect").html("<strong>" + data.username + "</strong>" + data.message);
-    else
-      connect_feedback.append("<p class='connect'><strong>" + data.username + "</strong>" + data.message + "</p>");
-
-    clearTimeout(connectTimeout);
-    connectTimeout = setTimeout(timeoutConnect, 2000);
-  });
-
   socket.on('disconnect_message', (data) => {
     if (connect_feedback.find("p.disconnect").length)
       $(".disconnect").html("<strong>" + data.username + "</strong>" + data.message);

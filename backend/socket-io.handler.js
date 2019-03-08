@@ -1,3 +1,6 @@
+const EventLog = require('./models/EventLog');
+const History = require("./models/History");
+
 module.exports = {
   subscribe: (server) => {
     const io = require('socket.io')(server);
@@ -9,31 +12,64 @@ module.exports = {
         room: "",
       }
 
-      console.log(`${socket.user["name"]} connected`);
+      let event = EventLog({ 
+        event: "User Connection",
+        user: socket.user["name"],
+        message: `${socket.user["name"]} connected`
+      });
+      event.save();
+      console.log(`[Event][${event.event}] ${event.message}`);
 
       socket.emit("connected", {
         username: socket.user["name"]
-      })
-
-      io.to(socket.user["room"]).emit('new_connection', {
-        username: socket.user["name"], 
-        message: ` has joined #${socket.user["room"]}`
       });
 
       socket.on('change_username', (data) => {
-        socket.user["name"] = data.username
+        let event = EventLog({ 
+          event: "Username Changed",
+          user: socket.user["name"],
+          message: `${socket.user["name"]} changed their username to ${data.username}`
+        });
+        event.save();
+
+        console.log(`[Event][${event.event}] ${event.message}`);
+
+        socket.user["name"] = data.username;
       });
 
       socket.on('new_message', (data) => {
-        io.to(socket.user["room"]).emit('new_message', {
-          room: data.room,
-          username: socket.user["name"],  
-          message: data.message 
-        });
+        let messageData = {
+          username: socket.user["name"],
+          message: data.message
+        }
+        History.findOneAndUpdate({ room: data.room }, {
+          $push: { chat_history: messageData }
+        }, (err, history) => {
+          if (err)
+            throw err;
+          
+          let event = EventLog({ 
+            event: "Message Sent",
+            user: socket.user["name"],
+            message: `${socket.user["name"]} sent a message to #${data.room}`
+          });
+          event.save();
+          console.log(`[Event][${event.event}] ${event.message}`);
+
+          messageData.room = data.room
+          io.to(socket.user["room"]).emit('new_message', messageData);
+        })
       });
 
       socket.on('disconnect', function () {
-        console.log(`${socket.user["name"]} has disconnected`);
+        let event = EventLog({ 
+          event: "User Disconnection",
+          user: socket.user["name"],
+          message: `${socket.user["name"]} has disconnected`
+        });
+        event.save();
+        console.log(`[Event][${event.event}] ${event.message}`);
+
         socket.broadcast.to(socket.user["room"]).emit('disconnect_message', {
           username: socket.user["name"], 
           message: ' has disconnected', 
@@ -51,20 +87,36 @@ module.exports = {
 
       socket.on('join_room', (data) => {
         if (data.room !== socket.user["room"]) {
-          socket.leave(socket.user["room"], () => {
-            console.log(`${socket.user["name"]} left #${data.room}`);
-          });
+          if (socket.user["room"] != "") {
+            socket.leave(socket.user["room"], () => {
+              console.log(`${socket.user["name"]} left #${data.room}`);
+            });
 
-          if (socket.user["room"] != "")
+            let event = EventLog({ 
+              event: "Room Left",
+              user: socket.user["name"],
+              message: `${socket.user["name"]} has left #${socket.user["room"]}`
+            });
+            event.save();
+            console.log(`[Event][${event.event}] ${event.message}`);
+
             io.to(socket.user["room"]).emit('leave_message', { 
               room: data.room,
               username: socket.user["name"], 
               message: ` has left the ${socket.user["room"]}`, 
             });
+          }
           
           socket.user["room"] = data.room;
           socket.join(data.room, () => {
-            console.log(`${socket.user["name"]} joined #${data.room}`);
+            let event = EventLog({ 
+              event: "Room Joined",
+              user: socket.user["name"],
+              message: `${socket.user["name"]} joined #${data.room}`
+            });
+            event.save();
+            console.log(`[Event][${event.event}] ${event.message}`);
+
             io.to(data.room).emit('join_message', { room: data.room, 
               message: ` has joined #${data.room}`, 
               username: socket.user["name"]
@@ -81,7 +133,15 @@ module.exports = {
             username: socket.user["name"],
             message: ` has left #${data.room}`
           };
-          console.log(`${socket.user["name"]} has left #${data.room}`);
+
+          let event = EventLog({ 
+            event: "Room Left",
+            user: socket.user["name"],
+            message: `${socket.user["name"]} has left #${data.room}`
+          });
+          event.save();
+          console.log(`[Event][${event.event}] ${event.message}`);
+
           socket.emit('leave_message', leaveData);
           io.to(data.room).emit('leave_message', leaveData);
         });
