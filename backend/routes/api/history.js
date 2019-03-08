@@ -18,11 +18,11 @@ router.get('', (req, res, next) => {
     });
 })
 
-router.get('/:room_name', (req, res, next) => {
+router.get('/:room', (req, res, next) => {
     res.contentType('application/json');
-    if(req.params.room_name) {
+    if(req.params.room) {
         console.log('get room history list')
-        History.findOne({room: req.params.room_name}, (err, hist) => {
+        History.findOne({room: req.params.room}, (err, hist) => {
             if(err)
                 throw err
             if(hist == null) 
