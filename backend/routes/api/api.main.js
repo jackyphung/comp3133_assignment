@@ -8,7 +8,7 @@ router.use((req,res,next) => {
 
 router.get('*', (req, res, next) => {
     res.contentType('application/json');
-    res.send({ message: "invalid API Route" });
+    res.send(JSON.stringify({ message: "invalid API Route" }));
 })
 
 module.exports = router;

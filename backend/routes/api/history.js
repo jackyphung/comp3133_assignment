@@ -18,17 +18,19 @@ router.get('', (req, res, next) => {
   });
 })
 
-router.get('/:room', (req, res, next) => {
+router.post('', (req, res, next) => {
   res.contentType('application/json');
-  if (req.params.room) {
+  if (req.body.roomname) {
     console.log('get room history list')
-    History.findOne({ room: req.params.room }, (err, hist) => {
+    History.findOne({ room: req.body.roomname }, (err, hist) => {
       if (err)
         throw err
       if (hist == null)
         res.send(JSON.stringify({ message: `The user "${req.params.room_name}" does not exist in the database` }));
       res.send(JSON.stringify(hist))
     })
+  } else {
+    res.send(JSON.stringify({ message: "Invalid Room History Request" }));
   }
 })
 

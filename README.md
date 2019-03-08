@@ -14,5 +14,6 @@
 #### Event Log: 
 - `/api/events/` - Retrieves all event logs
 #### Room History: 
-- `/api/history`- Retrieves all room history
-- `/api/history/:room` - Retrieves specific room history data, when given a room name
+- `/api/history`
+  - GET Retrieves all room history
+  - POST Retrieves specific room history when given room name
