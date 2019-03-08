@@ -13,12 +13,15 @@
       <header class="content-block">
         <h1>Super Chat</h1>
         <section class="options">
-          <div id="change_username">
-            <input id="username" type="text" />
-            <button id="send_username" type="button">Change Username</button>
-            <button id="main-room" class="join-room" type="button">main-room</button>
-            <button id="alt-room" class="join-room" type="button">alt-room</button>
-            <button id="leave_room" type="button">Leave Room</button>
+          <div class="left">
+            <div id="change_username">
+              <input id="username" type="text" placeholder="Username"/>
+              <button id="send_username" type="button">Set Username</button>
+            </div>
+          </div>
+          <div class="right">
+            <button id="change_room" class="button-option" type="button">Room List</button>
+            <button id="leave_room" class="button-option" type="button">Leave Room</button>
           </div>
         </section>
       </header>
@@ -33,12 +36,25 @@
       </section>
 
       <section id="chat_input" class="chat_input content-block">
-        <input id="message" class="vertical-align" type="text" />
+        <input id="message" class="vertical-align" type="text"/>
         <button id="send_message" class="vertical-align" type="button">Send</button>
       </section>
     </div>
   </div>
+  <div id="rooms" class="modal show">
+    <div class="modal-content">
+      <div class="modal-header">
+        Super Chat Room List
+        <h6>Please select a room:</h6>
+      </div>
+      <div class="modal-body">
+          <div id="main-room" class="join-room" type="button">main-room</div>
+          <div id="alt-room" class="join-room" type="button">alt-room</div>
+      </div>
+    </div>
+  </div>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/assets/modal.js"></script>
 <script src="/assets/chat.js"></script>
 </body>
 </html>

@@ -3,21 +3,21 @@ module.exports = {
     const io = require('socket.io')(server);
 
     io.on('connection', (socket) => {
-      console.log('New user connected');
-
+      const id = socket.id
       socket.user = {
-        name: "Anonymous",
-        room: "main-room",
+        name: `Anonymous-${id.substr(0, 5)}`,
+        room: "",
       }
 
-      socket.join(socket.user["room"]);
+      console.log(`${socket.user["name"]} connected`);
 
-      socket.send('hi');
+      socket.emit("connected", {
+        username: socket.user["name"]
+      })
 
-      //socket.emit('new_connection', { message: " connected", username: socket.user["name"] });
-      io.emit('new_connection', {
+      io.to(socket.user["room"]).emit('new_connection', {
         username: socket.user["name"], 
-        message: " has connected"
+        message: ` has joined #${socket.user["room"]}`
       });
 
       socket.on('change_username', (data) => {
@@ -33,7 +33,7 @@ module.exports = {
       });
 
       socket.on('disconnect', function () {
-        console.log('user disconnected');
+        console.log(`${socket.user["name"]} has disconnected`);
         socket.broadcast.to(socket.user["room"]).emit('disconnect_message', {
           username: socket.user["name"], 
           message: ' has disconnected', 
@@ -54,11 +54,13 @@ module.exports = {
           socket.leave(socket.user["room"], () => {
             console.log(`${socket.user["name"]} left #${data.room}`);
           });
-          io.to(socket.user["room"]).emit('leave_message', { 
-            room: data.room,
-            username: socket.user["name"], 
-            message: ` has left the ${socket.user["room"]}`, 
-          });
+
+          if (socket.user["room"] != "")
+            io.to(socket.user["room"]).emit('leave_message', { 
+              room: data.room,
+              username: socket.user["name"], 
+              message: ` has left the ${socket.user["room"]}`, 
+            });
           
           socket.user["room"] = data.room;
           socket.join(data.room, () => {
@@ -72,13 +74,16 @@ module.exports = {
       })
 
       socket.on('leave_room', (data) => {
+        socket.user["room"] = null;
         socket.leave(data.room, () => {
-          console.log(`${socket.user["name"]} has left #${data.room}`);
-          io.to(data.room).emit('leave_message', {
+          leaveData = {
             room: data.room,
             username: socket.user["name"],
             message: ` has left #${data.room}`
-          });
+          };
+          console.log(`${socket.user["name"]} has left #${data.room}`);
+          socket.emit('leave_message', leaveData);
+          io.to(data.room).emit('leave_message', leaveData);
         });
       })
     });

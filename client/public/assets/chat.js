@@ -1,18 +1,18 @@
 $(function () {
   var socket = io.connect(`${location.protocol}//${location.hostname}:${location.port}`)
 
-  var message = $("#message");
-  var username = $("#username");
-  var send_message = $("#send_message");
-  var send_username = $("#send_username");
-  var chatroom = $("#chatroom");
-  var chatroom2 = $("#chatroom2")
-  var typing_feedback = $("#typing-feedback");
-  var connect_feedback = $('#connect-feedback');
-  var join_room = $(".join-room");
-  var leave_room = $("#leave_room");
-  var current_room = "main-room";
-
+  const message = $("#message");
+  const username = $("#username");
+  const send_message = $("#send_message");
+  const send_username = $("#send_username");
+  const chatroom = $("#chatroom");
+  const typing_feedback = $("#typing-feedback");
+  const connect_feedback = $('#connect-feedback');
+  const change_room = $("#change_room");
+  const join_room = $(".join-room");
+  const leave_room = $("#leave_room");
+  
+  var current_room = "";
   var typingTimeout;
   var connectTimeout;
   var disconnectTimeout;
@@ -29,6 +29,10 @@ $(function () {
     $(".disconnect").remove();
   }
 
+  change_room.click(() => {
+    showModal("rooms");
+  })
+
   send_message.click(() => {
     let new_message = message.val().trim();
     if (new_message.length > 0) {
@@ -38,8 +42,8 @@ $(function () {
   })
 
   socket.on("new_message", (data) => {
-    //if (current_room == data.room)
     chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>");
+    chatroom.animate({ scrollTop: chatroom.height() }, "fast");
   });
 
   send_username.click(function () {
@@ -71,6 +75,18 @@ $(function () {
       typing_feedback.html("");
   });
 
+
+  socket.on("connected", (data) => {
+    username.val(data.username);
+    message.attr("disabled", true);
+    message.attr("placeholder", "You are currently not connected to a room.");
+    if (current_room != "") {
+      socket.emit("join_room", { room: current_room });
+    } else {
+      showModal("rooms");
+    }
+  });
+
   socket.on('new_connection', (data) => {
     console.log(data)
     if (connect_feedback.find(".connect").length)
@@ -93,21 +109,41 @@ $(function () {
   });
 
   join_room.click((e) => {
-    current_room = e.target.id;
-    socket.emit('join_room', { room: current_room });
-    chatroom.find('.message').remove();
+    if (e.target.id !== current_room) {
+      current_room = e.target.id;
+      socket.emit('join_room', { room: current_room });
+      chatroom.find('.message').remove();
+    }
+    hideModal("rooms");
   });
 
   socket.on('join_message', (data) => {
-    chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>");
-    chatroom.animate({ scrollTop: chatroom.height() }, "fast")
+    message.removeAttr("disabled");
+    message.removeAttr("placeholder");
+    if (connect_feedback.find(".connect").length)
+      $(".connect").html("<strong>" + data.username + "</strong>" + data.message);
+    else
+      connect_feedback.append("<p class='connect'><strong>" + data.username + "</strong>" + data.message + "</p>");
+
+    clearTimeout(connectTimeout);
+    connectTimeout = setTimeout(timeoutConnect, 2000);
   })
 
   leave_room.click(() => {
     socket.emit('leave_room', { room: current_room });
+    current_room = null;
+    showModal("rooms");
   })
 
   socket.on('leave_message', (data) => {
-    chatroom.append("<p class='message'>" + data.username + ": " + data.message + "</p>");
+    message.attr("disabled", true);
+    message.attr("placeholder", "You are currently not connected to a room.");
+    if (connect_feedback.find("p.disconnect").length)
+      $(".disconnect").html("<strong>" + data.username + "</strong>" + data.message);
+    else
+      connect_feedback.append("<p class='disconnect'><strong>" + data.username + "</strong>" + data.message + "</p>");
+
+    clearTimeout(disconnectTimeout);
+    disconnectTimeout = setTimeout(timeoutDisconnect, 2000);
   })
 });
