@@ -11,7 +11,7 @@ const port = process.env.port || 3030;
 var apiRoutes = {
     main: require('./routes/api/api.main'),
     history: require('./routes/api/history'),
-    event: require('./routes/api/eventlog')
+    events: require('./routes/api/eventlog')
 };
 // require the main route for the app
 // the main route will be used to render the index.html to all routes besides apiRoutes
@@ -30,7 +30,7 @@ mongoose.set('useFindAndModify', false);
 
 // Apply Express routes below
 app.use('/api/history', apiRoutes.history);
-app.use('/api/event', apiRoutes.event);
+app.use('/api/events', apiRoutes.events);
 app.use('/api/', apiRoutes.main);
 app.use('/', appRoute);
 
