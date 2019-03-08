@@ -5,7 +5,10 @@ const EventLogSchema = new Schema({
   event: String,
   user: String,
   message: String,
-  date_occurred: Date,
+  date_occurred: {
+    type: Date,
+    default: new Date()
+  },
 });
 
 module.exports = mongoose.model('event_log', EventLogSchema);

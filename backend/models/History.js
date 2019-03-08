@@ -3,11 +3,18 @@ const Schema = mongoose.Schema;
 
 const HistorySchema = new Schema({
   room: String,
-  chat_history: [new Schema({
-    username: String,
-    message: String,
-    time: Date
-  })]
+  chat_history: {
+    type: 
+      [new Schema({
+        username: String,
+        message: String,
+        time: {
+          type: Date,
+          default: new Date()
+        }
+      })],
+    default: [],
+  }
 });
 
 module.exports = mongoose.model('room_history', HistorySchema);
