@@ -1,0 +1,22 @@
+/*
+ArtXperience CSS Module
+LoginModal
+*/
+#login-modal .modal-content {
+  max-width: 450px;
+}
+
+#login-modal .modal-body.d-flex {
+  justify-content: center;
+  align-content: flex-start;
+  align-items: flex-start;
+
+  padding: 15px 25px;
+
+  min-height: 150px;
+}
+
+#login-modal input.sign-in,
+#login-modal button.sign-in {
+  text-transform: uppercase;
+}

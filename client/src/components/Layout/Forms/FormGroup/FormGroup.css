@@ -1,0 +1,50 @@
+/*
+ArtXperience CSS Module
+ComponentName
+*/
+.form-group {
+  position: relative;
+  flex-basis: 70%;
+  flex-grow: 1;
+  
+  min-width: 70%;
+  min-height: 32px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+  margin: 10px auto;
+}
+
+.form-group label {
+  flex-basis: 100%;
+  width: 100%;
+
+  margin: 0 0 10px;
+}
+
+.form-group input:not([type=checkbox]) {
+  flex-basis: 100%;
+  width: 100%;
+}
+
+.form-group label.select-label {
+  flex-basis: initial;
+  width: initial;
+  margin: 0;
+}
+
+.form-group label + select {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.form-group input[type=checkbox] + label {
+  margin: 0;
+  flex-basis: initial;
+  flex-grow: 0;
+  width: fit-content;
+}

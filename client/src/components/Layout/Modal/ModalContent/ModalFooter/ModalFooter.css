@@ -1,0 +1,12 @@
+/*
+ArtXperience CSS Module
+ModalFooter
+*/
+.modal-content .modal-footer {
+  padding: 15px 25px;
+  min-height: 50px;
+
+  background: rgba(245, 245, 245);
+
+  user-select: none;
+}

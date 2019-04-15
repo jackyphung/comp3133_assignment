@@ -1,0 +1,9 @@
+/*
+ArtXperience CSS Module
+ModalBody
+*/
+.modal-content .modal-body {
+  min-height: 300px;
+
+  background: rgba(255, 255, 255);
+}

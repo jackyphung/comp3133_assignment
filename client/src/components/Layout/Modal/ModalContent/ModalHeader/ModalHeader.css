@@ -1,0 +1,12 @@
+/*
+ArtXperience CSS Module
+ModalHeader
+*/
+.modal-content .modal-header {
+  padding: 15px 25px;
+  min-height: 50px;
+
+  background: rgba(240, 240, 240);
+
+  user-select: none;
+}

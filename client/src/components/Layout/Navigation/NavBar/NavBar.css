@@ -1,0 +1,72 @@
+/*
+ArtXperience CSS Module
+NavBar
+*/
+.navbar-body {
+  z-index: 9999;
+  position: absolute;
+  top: 0; left: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 100%; max-width: 100%;
+  min-height: 50px; max-height: 50px;
+
+  background: rgb(40,40,40);
+  border-bottom: 1px solid rgb(150,150,150);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+
+  transition: all ease-in 0.2s;
+}
+
+.navbar-body:hover {
+  box-shadow: 0 4px 7px rgba(0,0,0,0.25);
+}
+
+.navbar-inner {
+  position: relative;
+  padding: 0 10px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+  flex-basis: 100%;
+  flex-grow: 1;
+  max-width: 2560px;
+  min-height: 100%;
+
+  color: #fff;
+
+  transition: all ease-in 0.2s;
+}
+
+.navbar-section {
+  margin: 0;
+
+  flex-basis: 100%;
+  min-width: 100%; max-width: 100%;
+  min-height: 100%; max-height: 100%;
+
+  line-height: 50px;
+  vertical-align: middle;
+
+  text-align: right;
+}
+
+.navbar-body .nav-link {
+  background: rgb(45,45,45);
+
+  color: white !important;
+}
+
+.navbar-body .nav-link:hover,
+.navbar-body .nav-link:focus {
+  background: rgb(120,120,120);
+}
+
+.navbar-body .nav-link:active {
+  background: rgb(160, 160, 160);
+}

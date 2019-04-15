@@ -1,0 +1,34 @@
+/*
+ArtXperience CSS Module
+Modal
+*/
+.modal h1, .modal h2,
+.modal h3, .modal h4,
+.modal h5, .modal h6 {
+    margin: 5px 0;
+}
+
+.modal {
+    padding: 1.5%;
+    z-index: -1;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+    height: 0;
+
+    opacity: 0;
+    overflow: hidden;
+    color: black;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    text-align: left;
+}
+
+.modal.show {
+    z-index: 9999;
+    opacity: 1;
+    height: 100%;
+}

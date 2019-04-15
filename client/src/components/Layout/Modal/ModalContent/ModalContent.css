@@ -1,0 +1,19 @@
+/*
+ArtXperience CSS Module
+ModalContent
+*/
+.modal-content {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%); 
+
+  width: calc(100% - 3%);
+  max-width: 768px;
+  height: fit-content;
+  max-height: calc(100% -3%);
+
+  background: white;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.35);
+
+  overflow: auto;
+}
