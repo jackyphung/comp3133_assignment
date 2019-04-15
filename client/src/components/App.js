@@ -12,6 +12,7 @@ class App extends Component {
         <Switch>
           <Route path="/" render={(props) => <Home {...props}/>}/>
           <Route path="/room/:roomId" render={(props) => <Home {...props}/>}/>
+          <Route path="/admin" component={NotFound}/> {/* Placeholder for Administrators... if we get to it */}
           <Route path="*" component={NotFound}/>
         </Switch>
       </div>
