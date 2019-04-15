@@ -31,7 +31,7 @@
     "build:dev": "webpack --config webpack.dev.js",
     "start": "nodemon scripts/start-server",
     "start:server": "webpack --config webpack.prod.js && npm start",
-    "start:dev": "npm-run-all --parallel start WDS",
+    "start:dev": "npm-run-all --parallel build:dev start WDS",
     "WDS": "webpack-dev-server --inline --hot --open --config webpack.dev.js",
     "heroku-postbuild": "npm i && npm run build"
   },

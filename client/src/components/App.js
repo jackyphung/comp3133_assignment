@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import history from 'History';
-import { Home } from 'Pages';
+import { Home, NotFound } from 'Pages';
+import { Switch, Route } from 'react-router-dom';
 
 class App extends Component {
   componentDidMount() { }

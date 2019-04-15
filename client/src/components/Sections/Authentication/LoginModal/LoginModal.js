@@ -6,8 +6,6 @@ import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup } from 'Layout';
 import './LoginModal.css';
 
-import { UserAuthSubscriber } from 'services';
-
 class LoginModal extends Component {
   constructor(props) {
     super(props);
