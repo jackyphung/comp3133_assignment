@@ -8,7 +8,12 @@
 1. Run `npm install` in your command line interface. That's it!
 
 ## Running the Server
-1. Run `npm start` in your command line interface, its as simple as that.
+### Production
+1. Run `npm run start:server` in your command line interface, its as simple as that.
+_For running the server without building use `npm start` only_
+
+### Development
+1. Run `npm run start:dev` in your command line interface 
 
 ## API Routes
 #### Event Log: 
