@@ -29,7 +29,7 @@ class HomeView extends Component {
 	}
 
 	componentDidMount() {
-    let page = "Home";
+    let page = "Chat";
     if (document.title.includes(" | ")) {
       let title = document.title.split(" | ");
       title[title.length - 1] = page;
