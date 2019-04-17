@@ -24,13 +24,13 @@ class LoginButton extends Component {
   }
 
   render() { 
-    const { auth } = this.props;
+    const { auth, label, Header } = this.props;
     const { showModal } = this.state;
 
     return (  
       <React.Fragment>
-        <NavLink PageName="Sign In" onClick={this.toggleModal}/>
-        <LoginModal auth={auth} show={showModal} toggle={this.toggleModal}/>
+        <NavLink PageName={label ? label : "Sign In"} onClick={this.toggleModal}/>
+        <LoginModal Header={Header} auth={auth} show={showModal} toggle={this.toggleModal}/>
       </React.Fragment>
     );
   }

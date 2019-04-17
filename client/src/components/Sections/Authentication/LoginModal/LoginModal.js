@@ -5,6 +5,7 @@ LoginModal
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup } from 'Layout';
 import './LoginModal.css';
+import axios from 'axios';
 
 class LoginModal extends Component {
   constructor(props) {
@@ -36,17 +37,24 @@ class LoginModal extends Component {
     e.preventDefault();
     const { auth, username } = this.state;
     let password = e.target.password.value;
-    auth.login(username, password);
+    if (username != "" && password != "") {
+      axios.post(`${location.protocol}//${location.hostname}:${location.port}/api/`, 
+        { username: username, password: password }, () => {
+        
+      })
+    } else {
+      location.replace("/admin");
+    }
   }
 
   render() {
-    const { id, className, children, style, show, toggle } = this.props;
+    const { id, className, children, style, show, toggle, Header } = this.props;
     const { username } = this.state;
     return (
       <Modal id={"login-modal"} show={show} toggle={toggle}>
         <form method="POST" onSubmit={this.handleSignIn}>
           <ModalHeader>
-            <h2>Sign in to ArtXperience</h2>
+            <h2>{ Header ? Header : "Sign In" }</h2>
           </ModalHeader>
           
           <ModalBody className="d-flex">
