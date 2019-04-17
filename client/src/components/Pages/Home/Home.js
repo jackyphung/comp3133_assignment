@@ -5,6 +5,7 @@ HomeFeed
 import React, { Component } from 'react';
 import { ContentBody, ContentArea, ContentBlock } from 'Layout';
 import { FooterContent, RoomsList } from 'Sections';
+import { socket } from 'services/socket-io'
 import './Home.css';
 
 class Home extends Component {

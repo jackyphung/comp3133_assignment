@@ -5,7 +5,7 @@ import 'assets/css/General.css';
 import 'assets/css/Users.css';
 import { Switch, Route } from 'react-router-dom';
 import { ContentBody, ContentArea, ContentBlock } from 'Layout';
-import { Home, NotFound } from 'Pages';
+import { Home, NotFound, Admin } from 'Pages';
 
 class App extends Component {
   componentDidMount() { }
@@ -15,9 +15,9 @@ class App extends Component {
       <div className="App">
         <ContentBody>
           <Switch>
-            <Route path="/" render={(props) => <Home {...props}/>}/>
+            <Route exact path="/" render={(props) => <Home {...props}/>}/>
             <Route path="/room/:roomId" render={(props) => <Home {...props}/>}/>
-            <Route path="/admin" component={NotFound}/> {/* Placeholder for Administrators... if we get to it */}
+            <Route path="/admin" render={(props) => <Admin {...props}/>}/>
             <Route path="*" component={NotFound}/>
           </Switch>
         </ContentBody>
