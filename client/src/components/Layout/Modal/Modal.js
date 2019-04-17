@@ -33,7 +33,7 @@ class Modal extends Component {
   }
 
   render() {
-    const { id, className, children, style } = this.props;
+    const { id, className, contentClassName, children, style } = this.props;
     const { show, toggle } = this.state;
     
     return (
@@ -42,7 +42,7 @@ class Modal extends Component {
           <div id={id} onClick={toggle}
             className={`modal show${className ? ` ${className}` : ``}`} 
             style={style ? style : null}>
-            <ModalContent onClick={(e) => { e.stopPropagation(); }}>
+            <ModalContent className={contentClassName} onClick={(e) => { e.stopPropagation(); }}>
               {children}
             </ModalContent>
           </div>
