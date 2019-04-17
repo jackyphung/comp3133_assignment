@@ -33,10 +33,10 @@ class ContentBody extends Component {
     
     const { nav } = this.state;
     let bodyStyle = style ? style : {
-      paddingTop: nav ? "0" : null
+      paddingTop: nav ? null : "0"
     };
     if (bodyStyle)
-      bodyStyle.paddingTop = nav ? "0" : null
+      bodyStyle.paddingTop = nav ? null : "0"
 
     return (
       <div className="content-body" style={bodyStyle ? bodyStyle : null}>
