@@ -53,7 +53,7 @@ class HomeView extends Component {
 
 		return (
 			<React.Fragment>
-				<ContentArea nav={false} footer={false} className="padding-15">
+				<ContentArea footer={false}>
 					<ContentBlock>
 						<h1>Super Chat</h1>
 						<section className="options">
