@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const HistorySchema = new Schema({
   room: String,
+  status: {
+    type: String,
+    default: "active"
+  },
   chat_history: {
     type: 
       [new Schema({
