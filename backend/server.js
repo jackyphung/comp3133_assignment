@@ -6,7 +6,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 //heroku port
-const port = process.env.port || 3030;
+const port = process.env.port || 8000;
 
 var apiRoutes = {
     main: require('./routes/api/api.main'),
