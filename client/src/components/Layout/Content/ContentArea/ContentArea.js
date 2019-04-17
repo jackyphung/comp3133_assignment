@@ -12,7 +12,7 @@ class ContentArea extends Component {
   }
 
   state = {
-    footer: this.props.footer !== undefined ? this.props.footer : true
+    footer: this.props.footer !== undefined ? this.props.footer : true,
   };
 
   componentDidMount() { }
@@ -32,15 +32,16 @@ class ContentArea extends Component {
   render() {
     const { children, className, FooterContent, style } = this.props;
     const { footer } = this.state;
+    
     return (
-      <div className={`content-area${className ? ` ${className}` : ``}`} style={style ? style : null}>
-        {children}
-        {footer &&
-          <NavFooter>
-            {FooterContent}
-          </NavFooter>    
-        }
-      </div>
+    <div className={`content-area${className ? ` ${className}` : ``}`} style={style ? style : null}>
+      {children}
+      {footer &&
+        <NavFooter>
+          {FooterContent}
+        </NavFooter>    
+      }
+    </div>
     );
   }
 }

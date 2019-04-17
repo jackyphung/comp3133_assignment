@@ -10,7 +10,9 @@ class ContentBody extends Component {
     super(props);
   }
 
-  state = {}
+  state = {
+    nav: this.props.nav !== undefined ? this.props.nav : true,
+  }
 
   componentDidMount() { }
 
@@ -28,8 +30,16 @@ class ContentBody extends Component {
 
   render() {
     const { style } = this.props;
+    
+    const { nav } = this.state;
+    let bodyStyle = style ? style : {
+      paddingTop: nav ? "0" : null
+    };
+    if (bodyStyle)
+      bodyStyle.paddingTop = nav ? "0" : null
+
     return (
-      <div className="content-body" style={style ? style : null}>
+      <div className="content-body" style={bodyStyle ? bodyStyle : null}>
         {this.props.children}
       </div>
     );
