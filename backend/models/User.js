@@ -11,4 +11,4 @@ const UserSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('event_log', EventLogSchema);
+module.exports = mongoose.model('user', UserSchema);
