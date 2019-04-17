@@ -1,0 +1,39 @@
+.xs-user-picture, .sm-user-picture,
+.md-user-picture, .lg-user-picture,
+.xl-user-picture {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.xs-user-picture, .sm-user-picture {
+  border: 1px solid rgb(159, 159, 159);
+  border-radius: 50%;
+}
+
+.xs-user-picture {
+  min-width: 20px; max-width: 20px;
+  min-height: 20px; max-height: 20px;
+}
+
+.sm-user-picture {
+  min-width: 40px; max-width: 40px;
+  min-height: 40px; max-height: 40px;
+
+  background-color: rgba(212, 212, 212, 1.0);
+}
+
+.md-user-picture {
+  min-width: 200px; max-width: 200px;
+  min-height: 200px; max-height: 200px;
+  
+  background-color: rgba(241, 248, 255, 1.0);
+}
+
+.lg-user-picture {
+
+}
+
+.xl-user-picture {
+  
+}

@@ -1,0 +1,213 @@
+/*@media (min-width: 858px) {
+  html {
+      font-size: 12px;
+  }
+}
+
+@media (min-width: 780px) {
+  html {
+      font-size: 11px;
+  }
+}
+
+@media (min-width: 702px) {
+  html {
+      font-size: 10.5px;
+  }
+}
+
+@media (min-width: 724px) {
+  html {
+      font-size: 10.5px;
+  }
+}
+
+@media (max-width: 623px) {
+  html {
+      font-size: 10.5px;
+  }
+}*/
+
+body {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  position: fixed;
+  top: 0; right: 0;
+  width: 0.5em;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(150, 150, 160, 1.0);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.40);
+  border: 0.1em solid rgba(150, 150, 160, 1.0);
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+code {
+  font-size: 87.5%;
+  color: #e83e8c;
+  word-break: break-word;
+}
+
+code, kbd, pre, samp {
+  font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(81, 102, 194);
+
+  transition: all ease-in-out 0.2s;
+}
+
+a:hover {
+  color: rgb(121, 141, 231);
+}
+
+.no-select {
+  user-select: none;
+}
+
+.center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+
+.no-margin { margin: 0; }
+
+.padding-5 { padding: 5px; }
+.padding-10 { padding: 10px; }
+.padding-15 { padding: 15px; }
+.padding-20 { padding: 20px; }
+.padding-25 { padding: 25px; }
+
+.v-padding-5 { padding: 5px 0; }
+.v-padding-10 { padding: 10px 0; }
+.v-padding-15 { padding: 15px 0; }
+.v-padding-20 { padding: 20px 0; }
+.v-padding-25 { padding: 25px 0; }
+
+.h-padding-5 { padding: 0 5px; }
+.h-padding-10 { padding: 0 10px; }
+.h-padding-15 { padding: 0 15px; }
+.h-padding-20 { padding: 0 20px; }
+.h-padding-25 { padding: 0 25px; }
+
+.w-1 { width: 10%; }
+.w-2 { width: 20%; }
+.w-3 { width: 30%; }
+.w-4 { width: 40%; }
+.w-5 { width: 50%; }
+.w-6 { width: 60%; }
+.w-7 { width: 70%; }
+.w-8 { width: 80%; }
+.w-9 { width: 90%; }
+.w-10 { width: 100%; }
+.w-grow { width: 0; flex-grow: 1; }
+
+.d-block { display: block; }
+.d-inline-block { display: inline-block; }
+.d-inline { display: inline }
+.d-table { display: table }
+.d-inline-table { display: inline-table; }
+.d-flex { display: flex; flex-wrap: wrap; }
+.d-inline-flex { display: inline-flex; }
+
+label {
+  font-weight: bold;
+  user-select: none;
+}
+
+input:not([type=button]):not([type=checkbox]), textarea, select {
+  padding: 0 5px;
+  min-width: 60%;
+  min-height: 32px;
+
+  color: rgb(20, 20, 20);
+  background: rgb(253, 253, 253);
+  border: 1px solid rgb(191, 207, 214);
+  border-radius: 3px;
+
+  font-family: -apple-system,
+               BlinkMacSystemFont,
+               "Segoe UI",
+               Roboto,
+               "Helvetica Neue",
+               Arial,
+               sans-serif,
+               "Apple Color Emoji",
+               "Segoe UI Emoji",
+               "Segoe UI Symbol";
+
+  transition: all ease-in-out 0.125s;
+}
+
+textarea { 
+  padding: 5px; 
+  max-width: 100%;
+  transition: width 0s, height 0s;
+}
+
+input:not([type=button]):not([type=checkbox]):hover,
+input:not([type=button]):not([type=checkbox]):focus,
+textarea:hover, textarea:focus,
+select:hover, select:focus {
+  background: rgb(255, 255, 255);
+}
+
+input:not([type=button]):not([type=checkbox]):active, 
+textarea:active, select:active {
+  color: rgb(0, 0, 0);
+}
+
+button, input[type=button], input[type=submit] {
+  cursor: pointer;
+
+  min-width: 100%;
+  min-height: 32px;
+
+  background: rgb(230, 230, 230);
+  border: transparent;
+  border-radius: 50px;
+  outline: none;
+
+  font-weight: bold;
+
+  transition: all ease-in-out 0.125s;
+}
+
+button:hover, input[type=button]:hover, input[type=submit]:hover
+button:focus, input[type=button]:focus {
+  background: rgb(235, 235, 235);
+}
+
+button:active, input[type=button]:active, input[type=submit]:active {
+  background: rgb(215, 215, 215);
+}
