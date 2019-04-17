@@ -3,8 +3,8 @@ Component
 HomeFeed
 */
 import React, { Component } from 'react';
-import { ContentArea, ContentBlock } from 'Layout';
-import { FooterContent } from 'Sections';
+import { ContentBody, ContentArea, ContentBlock } from 'Layout';
+import { FooterContent, RoomsList } from 'Sections';
 import './Home.css';
 
 class Home extends Component {
@@ -25,7 +25,7 @@ class HomeView extends Component {
 	}
 
 	state = {
-		auth: this.props.auth ? this.props.auth : null
+		showModal: false
 	}
 
 	componentDidMount() {
@@ -39,13 +39,46 @@ class HomeView extends Component {
     }
 	}
 
+	toggleModal = (e) => {
+		const { showModal } = this.state;
+		this.setState({ showModal: !showModal }, () => {
+			console.log('Rooms List Toggle');
+		});
+	}
+
 	render() {
 		const { location } = this.props;
+		const { showModal } = this.state;
 
 		return (
-			<ContentArea footer={false}>
-
-			</ContentArea>
+			<React.Fragment>
+				<ContentArea nav={false} footer={false} className="padding-15">
+					<ContentBlock>
+						<h1>Super Chat</h1>
+						<section className="options">
+							<div className="left">
+								<div id="change_username">
+									<input id="username" type="text" placeholder="Username"/>
+									<button id="send_username" type="button">Set Username</button>
+								</div>
+							</div>
+							<div className="right">
+								<button id="change_room" className="button-option" type="button" onClick={this.toggleModal}>Room List</button>
+								<button id="leave_room" className="button-option" type="button">Leave Room</button>
+							</div>
+						</section>
+					</ContentBlock>
+					<ContentBlock id="chatroom">
+						<section id="typing-feedback"></section>
+						<section id="connect-feedback"></section>
+					</ContentBlock>
+					<ContentBlock className="chat_input">
+						<input id="message" className="vertical-align" type="text"/>
+						<button id="send_message" className="vertical-align" type="button">Send</button>
+					</ContentBlock>
+				</ContentArea>
+				<RoomsList show={showModal} toggle={this.toggleModal} fade/>
+			</React.Fragment>
 		);
 	}
 
