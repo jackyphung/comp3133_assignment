@@ -2,6 +2,7 @@
   "name": "fs_assignment",
   "version": "1.0.0",
   "private": true,
+  "main": "client/src/index.js",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
@@ -27,12 +28,12 @@
     "socket.io": "^2.2.0"
   },
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
-    "build:dev": "webpack --config webpack.dev.js",
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
     "start": "nodemon scripts/start-server",
-    "start:server": "webpack --config webpack.prod.js && npm start",
+    "start:server": "webpack --mode production && npm start",
     "start:dev": "npm-run-all --parallel build:dev start WDS",
-    "WDS": "webpack-dev-server --inline --hot --open --config webpack.dev.js",
+    "WDS": "webpack-dev-server --inline --hot --open",
     "heroku-postbuild": "npm i && npm run build"
   },
   "devDependencies": {
