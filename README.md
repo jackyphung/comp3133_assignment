@@ -1,6 +1,7 @@
 # COMP3133 Assignment
 ### 100801047 - Jacky Phung
 ### 100998164 - Jullian Anthony Sy-Lucero
+### 100831208 - Veronica Cheren
 #### Heroku App Deployment: https://comp3133-fs-assignment.herokuapp.com/
 #### Git Repository: https://github.com/jaepun/comp3133_assignment
 
