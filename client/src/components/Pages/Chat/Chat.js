@@ -4,23 +4,23 @@ HomeFeed
 */
 import React, { Component } from 'react';
 import { ContentBody, ContentArea, ContentBlock } from 'Layout';
-import { FooterContent, RoomsList } from 'Sections';
+import { FooterContent, ChatRoom, RoomsList } from 'Sections';
 import { socket } from 'services/socket-io'
-import './Home.css';
+import './Chat.css';
 
-class Home extends Component {
+class Chat extends Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
 		return (
-			<HomeView {...this.props} />
+			<ChatView {...this.props} />
 		)
 	}
 }
 
-class HomeView extends Component {
+class ChatView extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -48,7 +48,7 @@ class HomeView extends Component {
 	}
 
 	render() {
-		const { location } = this.props;
+		const { username } = this.props;
 		const { showModal } = this.state;
 
 		return (
@@ -63,14 +63,7 @@ class HomeView extends Component {
 							</div>
 						</section>
 					</ContentBlock>
-					<ContentBlock id="chatroom">
-						<section id="typing-feedback"></section>
-						<section id="connect-feedback"></section>
-					</ContentBlock>
-					<ContentBlock className="chat_input">
-						<input id="message" className="vertical-align" type="text"/>
-						<button id="send_message" className="vertical-align" type="button">Send</button>
-					</ContentBlock>
+					<ChatRoom username={username}/>
 				</ContentArea>
 				<RoomsList show={showModal} toggle={this.toggleModal} fade/>
 			</React.Fragment>
@@ -79,4 +72,4 @@ class HomeView extends Component {
 
 }
 
-export { Home };
+export { Chat };

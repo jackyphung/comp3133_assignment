@@ -1,3 +1,3 @@
-export * from './Home';
-export * from './NotFound';
 export * from './Admin';
+export * from './Chat';
+export * from './NotFound';

@@ -1,0 +1,34 @@
+/*
+CSS Module
+ChatRoom
+*/
+.chatroom {
+  height: calc(60vh - 50px);
+  overflow-y: overlay;
+}
+
+.chat-input > form.d-flex {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.chat-input {
+  padding: 15px;
+  
+  background-color: rgba(240, 240, 240, 1.0);
+}
+
+.chat-input input:not([type=button]).message-input {
+  min-width: 90%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.chat-input button.send-message {
+  min-width: 10%;
+  border: 1px solid rgb(191, 207, 214);
+  border-radius: 3px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

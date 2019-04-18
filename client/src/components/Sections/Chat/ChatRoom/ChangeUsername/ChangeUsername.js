@@ -12,6 +12,12 @@ class ChangeUsername extends Component {
     username: this.props.username ? this.props.username : ""
   }
 
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.username !== prevProps.username)
+      this.setState({ username: this.props.username });
+  }
+
   changeUsername = (e) => {
     e.preventDefault();
     const { setUsername } = this.props;

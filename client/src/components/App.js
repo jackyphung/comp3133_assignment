@@ -7,7 +7,7 @@ import { Switch, Route } from 'react-router-dom';
 import history from 'History';
 
 import { ContentBody, ContentArea, ContentBlock, NavBar, NavSection, NavLink } from 'Layout';
-import { Home, NotFound, Admin } from 'Pages';
+import { Chat, NotFound, Admin } from 'Pages';
 import { LoginButton, ChangeUsername } from 'Sections';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -16,6 +16,12 @@ import { KeyboardBackspace } from '@material-ui/icons';
 import { socket } from 'services/socket-io';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.socket = socket;
+  }
+
   state = {
     username: "",
     location: history.location.pathname,
@@ -23,7 +29,7 @@ class App extends Component {
   }
 
   componentDidMount() { 
-    socket.on("connected", (data) => {
+    this.socket.on("connected", (data) => {
       this.setState({ username: data.username }, () => {
         console.log(`Username was set to ${this.state.username}!`);
       })
@@ -71,8 +77,8 @@ class App extends Component {
           </NavBar>
 
           <Switch>
-            <Route exact path="/" render={(props) => <Home {...props}/>}/>
-            <Route path="/room/:roomId" render={(props) => <Home {...props}/>}/>
+            <Route exact path="/" render={(props) => <Chat {...props} username={username}/>}/>
+            <Route path="/room/:roomId" render={(props) => <Chat {...props} username={username}/>}/>
             <Route path="/admin" render={(props) => <Admin {...props}/>}/>
             <Route path="*" component={NotFound}/>
           </Switch>
