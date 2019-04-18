@@ -9,6 +9,10 @@ import history from 'History';
 import { ContentBody, ContentArea, ContentBlock, NavBar, NavSection, NavLink } from 'Layout';
 import { Home, NotFound, Admin } from 'Pages';
 import { LoginButton, ChangeUsername } from 'Sections';
+
+import { withStyles } from '@material-ui/core/styles';
+import { KeyboardBackspace } from '@material-ui/icons';
+
 import { socket } from 'services/socket-io';
 
 class App extends Component {
@@ -46,7 +50,7 @@ class App extends Component {
 
   render() {
     const { username, showChangeUsername } = this.state;
-    console.log(`location: ${history.location.pathname}`);
+
     return (
       <div className="App">
         <ContentBody>
@@ -54,7 +58,11 @@ class App extends Component {
             <NavSection align="left">
               {showChangeUsername ? 
                   <ChangeUsername setUsername={this.setUsername} username={username} />
-                : <NavLink Url="/" onClick={this.forceStateUpdate} PageName="Return to Chat"/> 
+                : <NavLink Url="/" onClick={this.forceStateUpdate}>
+                    <span className="d-flex" style={{ alignItems: "center", alignContent: "center" }}>
+                      <KeyboardBackspace/><span className="d-inline-block" style={{ marginLeft: "5px" }}>Return to Chat</span>
+                    </span>
+                  </NavLink> 
               }
             </NavSection>
             <NavSection align="right">
