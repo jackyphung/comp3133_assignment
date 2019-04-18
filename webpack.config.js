@@ -1,8 +1,7 @@
 // webpack.config.js
-const { resolve, join } = require('path');
+const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin')
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 
 module.exports = {
@@ -59,16 +58,7 @@ module.exports = {
       hash: true
     })
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin({
-      parallel: true,
-      terserOptions: {
-        ecma: 6,
-      },
-    }),]
-  },
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
     hot: true,
     inline: true,
