@@ -15,7 +15,10 @@ class ChatMessages extends Component {
     return (
       <React.Fragment>
         {messages.map(message => (
-          <p className="message"><strong>{message.username}</strong>: {message.message}</p>
+          <React.Fragment>
+            <div className="message-user"><strong>{message.username}</strong>:</div>
+            <div className="message">{message.message}</div>
+          </React.Fragment>
         ))}
       </React.Fragment>
     );

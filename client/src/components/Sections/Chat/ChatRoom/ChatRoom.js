@@ -50,7 +50,7 @@ class ChatRoom extends Component {
     const { messages } = this.state;
     return (
       <React.Fragment>
-        <ContentBlock className="chatroom">
+        <ContentBlock className="chatroom d-flex">
           <section id="typing-feedback"></section>
           <section id="connect-feedback"></section>
           <ChatMessages messages={messages}/>

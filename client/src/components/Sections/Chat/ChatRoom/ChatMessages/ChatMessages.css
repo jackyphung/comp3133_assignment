@@ -1,3 +1,24 @@
-.message {
-  
+.chatroom.d-flex {
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.chatroom .message-user,
+.chatroom .message {
+  padding: 15px;
+}
+
+.chatroom .message-user {
+  flex-basis: 12%;
+  min-width: 12%;
+
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.chatroom .message {
+  flex-basis: 88%;
+  min-width: 88%;
 }
