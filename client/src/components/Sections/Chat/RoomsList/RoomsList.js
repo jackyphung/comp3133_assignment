@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter} from 'Layout';
 import classnames from 'classnames';
-import './RoomsList.js';
+import './RoomsList.css';
 
 class RoomsList extends Component {
   constructor(props) {
