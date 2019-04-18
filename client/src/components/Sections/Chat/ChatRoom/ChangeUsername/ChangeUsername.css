@@ -1,0 +1,22 @@
+/*
+CSS Module
+ChangeUsername
+*/
+form.change-username {
+  align-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+input:not([type=button]).username {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+button.send-username {
+  min-width: 150px;
+  border: 1px solid rgb(191, 207, 214);
+  border-radius: 3px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

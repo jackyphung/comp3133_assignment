@@ -54,15 +54,9 @@ class HomeView extends Component {
 		return (
 			<React.Fragment>
 				<ContentArea footer={false}>
-					<ContentBlock>
+					<ContentBlock className="chat-header">
 						<h1>Super Chat</h1>
 						<section className="options">
-							<div className="left">
-								<div id="change_username">
-									<input id="username" type="text" placeholder="Username"/>
-									<button id="send_username" type="button">Set Username</button>
-								</div>
-							</div>
 							<div className="right">
 								<button id="change_room" className="button-option" type="button" onClick={this.toggleModal}>Room List</button>
 								<button id="leave_room" className="button-option" type="button">Leave Room</button>
