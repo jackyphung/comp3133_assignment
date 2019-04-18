@@ -26,7 +26,6 @@ class AdminView extends Component {
     history: [],
     rooms: [],
     addRoom: false,
-    editRoom: false,
     showModal: false,
     activeTab: 0
   }
@@ -65,7 +64,8 @@ class AdminView extends Component {
         roomlist.push({
           name: row.room,
           status: row.status,
-          messages: row.chat_history.length
+          messages: row.chat_history.length,
+          edit: false
         })
 
         this.setState({
@@ -80,13 +80,32 @@ class AdminView extends Component {
   }
 
   componentDidMount() {
-    this.getEvents()
-    this.getHistory()
-    this.getRooms()
+    this.getEvents();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.activeTab !== prevState.activeTab) {
+      const { activeTab } = this.state;
+      if (activeTab === 0)
+        this.getEvents();
+      if (activeTab === 1)
+        this.getHistory();
+      if (activeTab === 2)
+        this.getRooms();
+    }
   }
 
   showAddRoom = () => {
     this.setState({ addRoom: !this.state.addRoom})
+  }
+
+  showEditRoom = (e) => {
+    let index = e.target.id;
+    console.log("attempted to make edit available...");
+    const { rooms } = this.state;
+    let updatedRooms = rooms;
+    updatedRooms[index].edit = !updatedRooms[index].edit
+    this.setState({ rooms: updatedRooms });
   }
 
   render() {
@@ -179,15 +198,15 @@ class AdminView extends Component {
                 <TableBody>
                   {
                     this.state.rooms.length &&
-                    this.state.rooms.map(row => 
+                    this.state.rooms.map((row, index) => 
                       <TableRow>
                         <TableCell>{row.name}</TableCell>
                         <TableCell>{row.status}</TableCell>
                         <TableCell>{row.messages}</TableCell>
                         <TableCell>
-                          <button onClick={this.showEditRoom}>{ editRoom ? "Close" : "Edit Room" }</button> 
-                          { editRoom && 
-                            <ContentBlock>
+                          <button id={index} onClick={this.showEditRoom}>{ row.edit ? "Close" : "Edit Room" }</button> 
+                          { row.edit && 
+                            <React.Fragment>
                               <input type="text" placeholder="Room Name"></input>
                               <br/>
                               Status: <select>
@@ -196,7 +215,7 @@ class AdminView extends Component {
                                       </select>
                               <br/>
                               <button>Edit</button>
-                            </ContentBlock> 
+                            </React.Fragment> 
                           }
                         </TableCell>
                       </TableRow>
