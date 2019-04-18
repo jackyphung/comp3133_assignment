@@ -11,9 +11,7 @@ class Admin extends Component {
 
   render() {
     return (
-      <div>
-        <AdminView {...this.props} />
-      </div>
+      <AdminView {...this.props} />
     )
   }
 }
@@ -96,19 +94,21 @@ class AdminView extends Component {
     
     return (
       <ContentArea footer={false}> {/* the first couple of rows are still grey but can be fixed later */}
-          <Tabs 
-            variant="scrollable"
-            scrollButton="on"
-            value={activeTab}
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={this.handleActiveTab}>
-            <Tab label="Event History" />
-            <Tab label="Chat History" />
-            <Tab label="Rooms" />
-          </Tabs>
+          <ContentBlock>
+            <Tabs 
+              variant="scrollable"
+              scrollButton="on"
+              value={activeTab}
+              indicatorColor="primary"
+              textColor="primary"
+              onChange={this.handleActiveTab}>
+              <Tab label="Event History" />
+              <Tab label="Chat History" />
+              <Tab label="Rooms" />
+            </Tabs>
+          </ContentBlock>
           { activeTab === 0 &&
-            <div>
+            <ContentBlock>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -131,10 +131,10 @@ class AdminView extends Component {
                 } 
                 </TableBody>
               </Table>
-            </div>
+            </ContentBlock>
           }
           { activeTab === 1 &&
-            <div>
+            <ContentBlock>
             <Table>
                 <TableHead>
                   <TableRow>
@@ -157,16 +157,16 @@ class AdminView extends Component {
                   }
                 </TableBody>
               </Table>
-          </div>
+          </ContentBlock>
           }
           { activeTab === 2 &&
-            <div>
+            <ContentBlock>
               <button onClick={this.showAddRoom}>{ addRoom ? "Close" : "Add Room" }</button>
               { addRoom && 
-                <div>
+                <ContentBlock>
                   <input type="text" placeholder="Room Name"></input>
                   <button>Add</button>
-                </div>
+                </ContentBlock>
               }
             <Table>
                 <TableHead>
@@ -187,7 +187,7 @@ class AdminView extends Component {
                         <TableCell>
                           <button onClick={this.showEditRoom}>{ editRoom ? "Close" : "Edit Room" }</button> 
                           { editRoom && 
-                            <div>
+                            <ContentBlock>
                               <input type="text" placeholder="Room Name"></input>
                               <br/>
                               Status: <select>
@@ -196,7 +196,7 @@ class AdminView extends Component {
                                       </select>
                               <br/>
                               <button>Edit</button>
-                            </div> 
+                            </ContentBlock> 
                           }
                         </TableCell>
                       </TableRow>
@@ -204,7 +204,7 @@ class AdminView extends Component {
                   }
                 </TableBody>
               </Table>
-            </div>
+            </ContentBlock>
           }
       </ContentArea>
     )
