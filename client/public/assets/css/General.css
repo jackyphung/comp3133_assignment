@@ -48,7 +48,7 @@ body {
 *::-webkit-scrollbar {
   position: fixed;
   top: 0; right: 0;
-  width: 0.5em;
+  width: 0.5em; height: 0.5em;
 }
 
 *::-webkit-scrollbar-track {
