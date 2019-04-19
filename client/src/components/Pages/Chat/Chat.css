@@ -6,3 +6,7 @@ HomeFeed
   text-align: center;
   font-family: Comfortaa;
 }
+
+.chat-header button.leave-room {
+  border-radius: 0;
+}

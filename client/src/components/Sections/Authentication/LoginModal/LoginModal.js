@@ -5,6 +5,7 @@ LoginModal
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup } from 'Layout';
 import './LoginModal.css';
+import history from 'History';
 import axios from 'axios';
 
 class LoginModal extends Component {
@@ -39,11 +40,17 @@ class LoginModal extends Component {
     let password = e.target.password.value;
     if (username != "" && password != "") {
       axios.post(`${location.protocol}//${location.hostname}:${location.port}/api/`, 
-        { username: username, password: password }, () => {
-        
-      })
+        { username: username, password: password })
+        .then((response) => {
+          console.log(response);
+          if (response.data._id)
+            this.props.setLoginState({ user_data: response.data }, () => {
+              history.replace("/admin");
+              this.props.toggle();
+            });
+        })
     } else {
-      location.replace("/admin");
+      history.replace("/admin");
     }
   }
 

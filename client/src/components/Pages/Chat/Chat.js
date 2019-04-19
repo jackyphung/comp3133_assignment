@@ -48,7 +48,7 @@ class ChatView extends Component {
 	}
 
 	render() {
-		const { username } = this.props;
+		const { username, showRoomList, toggleRoomList } = this.props;
 		const { showModal } = this.state;
 
 		return (
@@ -58,14 +58,13 @@ class ChatView extends Component {
 						<h1>Super Chat</h1>
 						<section className="options">
 							<div className="right">
-								<button id="change_room" className="button-option" type="button" onClick={this.toggleModal}>Room List</button>
-								<button id="leave_room" className="button-option" type="button">Leave Room</button>
+								<button className="leave-room" type="button">Leave Room</button>
 							</div>
 						</section>
 					</ContentBlock>
 					<ChatRoom username={username}/>
 				</ContentArea>
-				<RoomsList show={showModal} toggle={this.toggleModal} fade/>
+				<RoomsList show={showRoomList || showModal} toggle={toggleRoomList || this.toggleModal} fade/>
 			</React.Fragment>
 		);
 	}

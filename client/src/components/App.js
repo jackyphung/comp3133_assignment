@@ -23,9 +23,11 @@ class App extends Component {
   }
 
   state = {
+    user_data: null,
     username: "",
     location: history.location.pathname,
-    showChangeUsername: history.location.pathname.includes("/admin") ? false : true
+    showChangeUsername: history.location.pathname.includes("/admin") ? false : true,
+    showRoomList: true,
   }
 
   componentDidMount() { 
@@ -47,15 +49,32 @@ class App extends Component {
   }
 
   setUsername = (data, cb) => {
-    this.setState(data, cb)
+    cb();
+    this.setState(data, () => {
+      this.forceStateUpdate();
+    });
   }
 
   forceStateUpdate = () => {
     this.setState(this.state);
   }
 
+  setLoginState = (data, cb) => {
+    cb();
+    this.setState(data, () => {
+      this.forceStateUpdate();
+    });
+  }
+
+  toggleRoomList = () => {
+    const { showRoomList } = this.state;
+		this.setState({ showRoomList: !showRoomList }, () => {
+			console.log('Rooms List Toggle');
+		});
+  }
+
   render() {
-    const { username, showChangeUsername } = this.state;
+    const { username, showChangeUsername, showRoomList, user_data } = this.state;
 
     return (
       <div className="App">
@@ -72,13 +91,14 @@ class App extends Component {
               }
             </NavSection>
             <NavSection align="right">
-              <LoginButton Header="Administrative Access" label="Administrator Login"/>
+              <NavLink PageName="Room List" onClick={this.toggleRoomList}/>
+              <LoginButton Header="Administrative Access" user_data={user_data} setLoginState={this.setLoginState} location={history.location} label="Administrator Login"/>
             </NavSection>
           </NavBar>
 
           <Switch>
-            <Route exact path="/" render={(props) => <Chat {...props} username={username}/>}/>
-            <Route path="/room/:roomId" render={(props) => <Chat {...props} username={username}/>}/>
+            <Route exact path="/" render={(props) => <Chat {...props} toggleRoomList={this.toggleRoomList} showRoomList={showRoomList} username={username}/>}/>
+            <Route path="/room/:roomId" render={(props) => <Chat {...props} toggleRoomList={this.toggleRoomList} showRoomList={showRoomList} username={username}/>}/>
             <Route path="/admin" render={(props) => <Admin {...props}/>}/>
             <Route path="*" component={NotFound}/>
           </Switch>
