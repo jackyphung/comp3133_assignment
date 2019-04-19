@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './Admin.css';
 import { ContentBody, ContentArea, ContentBlock } from 'Layout';
 import { Tab, Tabs, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, TableFooter, Paper, IconButton } from '@material-ui/core'
 import { FirstPageIcon, KeyboardArrowLeft, KeyboardArrowRight, LastPageIcon } from '@material-ui/icons'
@@ -112,7 +113,7 @@ class AdminView extends Component {
     const { showModal, activeTab, addRoom, editRoom } = this.state;
     
     return (
-      <ContentArea footer={false}> {/* the first couple of rows are still grey but can be fixed later */}
+      <ContentArea id="admin-panel" footer={false}> {/* the first couple of rows are still grey but can be fixed later */}
           <ContentBlock>
             <Tabs 
               variant="scrollable"

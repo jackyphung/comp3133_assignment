@@ -1,0 +1,7 @@
+/*
+CSS Module
+Admin
+*/
+#admin-panel td {
+  word-break: break-word;
+}
