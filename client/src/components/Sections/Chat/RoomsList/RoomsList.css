@@ -1,3 +1,50 @@
+/*
+CSS Module
+RoomsList
+*/
 #rooms h2 {
   font-family: Comfortaa;
+}
+
+#rooms .modal-body {
+  overflow-y: overlay;
+}
+
+.room {
+  cursor: pointer;
+
+  position: relative;
+  width: 100%;
+  padding: 10px 25px;
+
+  background: rgba(250, 250, 250);
+}
+
+.room, .room:before, .room:after {
+  user-select: none;
+}
+
+.room:before {
+  content: "#";
+  position: absolute;
+  top: 10px; left: 12.5px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.room:hover:after,
+.room:focus:after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.125);
+}
+
+.room:active:after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.175);
 }

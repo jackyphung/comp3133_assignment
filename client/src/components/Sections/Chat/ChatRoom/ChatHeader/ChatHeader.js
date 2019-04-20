@@ -4,30 +4,40 @@ import './ChatHeader.css';
 
 import { Cancel } from '@material-ui/icons';
 
-class ChatHeader extends Component {
-  constructor(props) {
-    super(props);
-  }
+const ChatHeader = (props) => {
+  const { room, toggleRoomList, leaveRoom } = props;
 
-  state = {
-
-  }
-
-  render() {
-    return (
-      <ContentBlock className="chat-header">
-        <section className="options">
-          <div className="right">
-            <button className="leave-room" type="button">
-              <Cancel/>
-              <span className="d-inline-block" style={{ margin: "0 5px" }}>Leave Room</span>
-            </button>
-          </div>
-        </section>
-        <h1>Super Chat</h1>
-      </ContentBlock>
-    )
-  }
+  return (
+    <ContentBlock className="chat-header">
+      <section className="options">
+        <div className="right">
+          <button className="leave-room" type="button" onClick={room ? leaveRoom : toggleRoomList}>
+            { room ?
+                <React.Fragment>
+                  <Cancel/><span className="d-inline-block" style={{ margin: "0 5px" }}>Leave #{room}</span>
+                </React.Fragment>
+              : <span className="d-inline-block">You are currently not in a room. Join a room to start chatting!~</span>
+            }
+          </button>
+        </div>
+      </section>
+      <h1>Super Chat</h1>
+    </ContentBlock>
+  )
 }
+
+// class ChatHeader extends Component {
+//   constructor(props) {
+//     super(props);
+//   }
+
+//   state = {
+
+//   }
+
+//   render() {
+    
+//   }
+// }
 
 export { ChatHeader };

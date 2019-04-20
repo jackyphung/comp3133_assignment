@@ -6,7 +6,7 @@ ChatConnectionIndicator
   position: sticky;
   top: 0; left: 0;
   width: 100%;
-  padding: 0 15px;
+  padding: 5px 15px;
 }
 
 .connection-indicator > p {
