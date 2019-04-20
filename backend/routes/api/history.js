@@ -35,7 +35,7 @@ router.post('', (req, res, next) => {
   }
 })
 
-router.post('create', (req, res, next) => {
+router.post('/create', (req, res, next) => {
   res.contentType('application/json');
   if (req.body.roomname) {
     console.log('create room')
@@ -54,7 +54,7 @@ router.post('create', (req, res, next) => {
   }
 })
 
-router.post('update', (req, res, next) => {
+router.post('/update', (req, res, next) => {
   res.contentType('application/json');
   let values = req.body;
   if (values.roomname) {
