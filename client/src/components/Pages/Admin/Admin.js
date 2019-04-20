@@ -28,7 +28,8 @@ class AdminView extends Component {
     rooms: [],
     addRoom: false,
     showModal: false,
-    activeTab: 0
+    activeTab: 0,
+    newName: ''
   }
 
   getEvents = () => {
@@ -109,11 +110,17 @@ class AdminView extends Component {
     this.setState({ rooms: updatedRooms });
   }
 
+  handleNameChange = (e) => {
+    this.setState({ newName: e.target.value });
+  }
+
+
+
   render() {
     const { showModal, activeTab, addRoom, editRoom } = this.state;
     
     return (
-      <ContentArea id="admin-panel" footer={false}> {/* the first couple of rows are still grey but can be fixed later */}
+      <ContentArea id="admin-panel" footer={false}>
           <ContentBlock>
             <Tabs 
               variant="scrollable"
@@ -127,7 +134,7 @@ class AdminView extends Component {
               <Tab label="Rooms" />
             </Tabs>
           </ContentBlock>
-          { activeTab === 0 &&
+          { activeTab === 0 && 
             <ContentBlock>
               <Table>
                 <TableHead>
@@ -139,7 +146,7 @@ class AdminView extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                { this.state.events.length &&    
+                { this.state.events.length > 0 && 
                   this.state.events.map(row => 
                         <TableRow>
                           <TableCell>{row.date_occurred}</TableCell>
@@ -147,13 +154,13 @@ class AdminView extends Component {
                           <TableCell>{row.user}</TableCell>
                           <TableCell>{row.message}</TableCell>
                         </TableRow>
-                  )  /*maybe turn into a ternary to display an error if this.state.events doesnt exist*/ 
+                  )
                 } 
                 </TableBody>
               </Table>
             </ContentBlock>
           }
-          { activeTab === 1 &&
+          { activeTab === 1 && 
             <ContentBlock>
             <Table>
                 <TableHead>
@@ -165,7 +172,7 @@ class AdminView extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  { this.state.history.length &&
+                  { this.state.history.length > 0 &&
                     this.state.history.map(row => 
                       <TableRow>
                         <TableCell>{row.room}</TableCell>
@@ -198,7 +205,7 @@ class AdminView extends Component {
                 </TableHead>
                 <TableBody>
                   {
-                    this.state.rooms.length &&
+                    this.state.rooms.length > 0 &&
                     this.state.rooms.map((row, index) => 
                       <TableRow>
                         <TableCell>{row.name}</TableCell>
@@ -208,14 +215,14 @@ class AdminView extends Component {
                           <button id={index} onClick={this.showEditRoom}>{ row.edit ? "Close" : "Edit Room" }</button> 
                           { row.edit && 
                             <React.Fragment>
-                              <input type="text" placeholder="Room Name"></input>
+                              <input type="text" placeholder="Room Name" value={this.state.newName} onChange={this.handleNameChange} id='roomName'></input>
                               <br/>
-                              Status: <select>
-                                      <option value="active">Active</option>
-                                      <option value="inactive">Inactive</option>
+                              Status: <select value={row.status} id='roomStatus'>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
                                       </select>
                               <br/>
-                              <button>Edit</button>
+                              <button >Edit</button>
                             </React.Fragment> 
                           }
                         </TableCell>
