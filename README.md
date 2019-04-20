@@ -4,6 +4,8 @@
 ### 100831208 - Veronica Cheren
 #### Heroku App Deployment: https://comp3133-fs-assignment.herokuapp.com/
 #### Git Repository: https://github.com/jaepun/comp3133_assignment
+#### Note: Part 1 of assignment is located in the `no-react` branch
+#### https://github.com/jaepun/comp3133_assignment/tree/no-react
 
 ## Initial Setup
 1. Run `npm install` in your command line interface. That's it!
