@@ -10,16 +10,14 @@ const ChatHeader = (props) => {
   return (
     <ContentBlock className="chat-header">
       <section className="options">
-        <div className="right">
-          <button className="leave-room" type="button" onClick={room ? leaveRoom : toggleRoomList}>
-            { room ?
-                <React.Fragment>
-                  <Cancel/><span className="d-inline-block" style={{ margin: "0 5px" }}>Leave #{room}</span>
-                </React.Fragment>
-              : <span className="d-inline-block">You are currently not in a room. Join a room to start chatting!~</span>
-            }
-          </button>
-        </div>
+        <button className="leave-room" type="button" onClick={room ? leaveRoom : toggleRoomList}>
+          { room ?
+              <React.Fragment>
+                <Cancel/><span className="d-inline-block" style={{ margin: "0 5px" }}>Leave #{room}</span>
+              </React.Fragment>
+            : <span className="d-inline-block">You are currently not in a room. Join a room to start chatting!~</span>
+          }
+        </button>
       </section>
       <h1>Super Chat</h1>
     </ContentBlock>
