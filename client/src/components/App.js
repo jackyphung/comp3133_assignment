@@ -91,7 +91,12 @@ class App extends Component {
               }
             </NavSection>
             <NavSection align="right">
-              <NavLink PageName="Room List" onClick={this.toggleRoomList}/>
+              {!history.location.pathname.startsWith("/admin") &&
+                <React.Fragment>
+                  <NavLink PageName="Room List" onClick={this.toggleRoomList}/>
+                  {user_data && <NavLink Url="/admin" PageName="Admin Panel"/>}
+                </React.Fragment>
+              }
               <LoginButton Header="Administrative Access" user_data={user_data} setLoginState={this.setLoginState} location={history.location} label="Administrator Login"/>
             </NavSection>
           </NavBar>
@@ -99,7 +104,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={(props) => <Chat {...props} toggleRoomList={this.toggleRoomList} showRoomList={showRoomList} username={username}/>}/>
             <Route path="/room/:roomId" render={(props) => <Chat {...props} toggleRoomList={this.toggleRoomList} showRoomList={showRoomList} username={username}/>}/>
-            <Route path="/admin" render={(props) => <Admin {...props}/>}/>
+            {user_data && <Route path="/admin" render={(props) => <Admin {...props}/>}/>}
             <Route path="*" component={NotFound}/>
           </Switch>
         </ContentBody>
