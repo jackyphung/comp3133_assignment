@@ -41,16 +41,14 @@ class LoginModal extends Component {
     if (username != "" && password != "") {
       axios.post(`${location.protocol}//${location.hostname}:${location.port}/api/`, 
         { username: username, password: password })
-        .then((response) => {
-          console.log(response);
-          if (response.data._id)
-            this.props.setLoginState({ user_data: response.data }, () => {
-              history.replace("/admin");
-              this.props.toggle();
-            });
-        })
-    } else {
-      history.replace("/admin");
+      .then((response) => {
+        console.log(response);
+        if (response.data._id)
+          this.props.setLoginState({ user_data: response.data }, () => {
+            history.replace("/admin");
+            this.props.toggle();
+          });
+      });
     }
   }
 
@@ -72,7 +70,6 @@ class LoginModal extends Component {
             <FormGroup id="password-input">
               <label>Password</label>
               <input id="password" name="password" type="password"/>
-              {/*<ForgotPassword/>*/}
             </FormGroup>
           </ModalBody>
           
