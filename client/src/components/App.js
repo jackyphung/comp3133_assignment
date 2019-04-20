@@ -11,7 +11,7 @@ import { Chat, NotFound, Admin } from 'Pages';
 import { LoginButton, ChangeUsername } from 'Sections';
 
 import { withStyles } from '@material-ui/core/styles';
-import { KeyboardBackspace, List, Settings } from '@material-ui/icons';
+import { KeyboardBackspace, List, Settings, PersonPin } from '@material-ui/icons';
 
 import { socket } from 'services/socket-io';
 
@@ -107,7 +107,13 @@ class App extends Component {
                   }
                 </React.Fragment>
               }
-              <LoginButton Header="Administrative Access" user_data={user_data} setLoginState={this.setLoginState} location={history.location} label="Administrator Login"/>
+              <LoginButton Header="Administrative Access" user_data={user_data} setLoginState={this.setLoginState} location={history.location} label={
+                <React.Fragment>
+                  <span className="d-flex" style={{ alignItems: "center", alignContent: "center" }}>
+                    <PersonPin /><span className="d-inline-block" style={{ marginLeft: "5px" }}>Administrator Login</span>
+                  </span>
+                </React.Fragment>
+              }/>
             </NavSection>
           </NavBar>
 
