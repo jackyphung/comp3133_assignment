@@ -42,22 +42,29 @@ module.exports = {
           username: socket.user["name"],
           message: data.message
         }
-        History.findOneAndUpdate({ room: data.room }, {
+        History.findOneAndUpdate({ room: socket["user"].room }, {
           $push: { chat_history: messageData }
         }, (err, history) => {
           if (err)
             throw err;
           
-          let event = EventLog({ 
-            event: "Message Sent",
-            user: socket.user["name"],
-            message: `${socket.user["name"]} sent a message to #${data.room}`
-          });
-          event.save();
-          console.log(`[Event][${event.event}] ${event.message}`);
+          if (history !== null) {
+            let event = EventLog({ 
+              event: "Message Sent",
+              user: socket.user["name"],
+              message: `${socket.user["name"]} sent a message to #${socket["user"].room}`
+            });
+            event.save();
 
-          messageData.room = data.room
-          io.to(socket.user["room"]).emit('new_message', messageData);
+            io.to(socket.user["room"]).emit('new_message', messageData);
+            console.log(`[Event][${event.event}] ${event.message}`);
+          } else {
+            io.to(socket.user["room"]).emit('new_message', {  
+              username: "Server",
+              message: "The room you are trying to send a message does not exist or has gone inactive, please consider joining another room.",
+              room: socket["user"].room
+            });
+          }
         })
       });
 
