@@ -23,3 +23,7 @@ _For running the server without building use `npm start` only_
 - `/api/history`
   - GET Retrieves all room history
   - POST Retrieves specific room history when given room name
+
+## Admin Login Credentials
+### Username: admin
+### Password: admin
