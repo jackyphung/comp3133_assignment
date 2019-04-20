@@ -24,6 +24,7 @@
     "react-hot-loader": "^4.8.4",
     "react-modal": "^3.8.1",
     "react-router-dom": "^5.0.0",
+    "react-spinners": "^0.5.4",
     "react-swipeable-views": "^0.13.1",
     "socket.io": "^2.2.0"
   },
