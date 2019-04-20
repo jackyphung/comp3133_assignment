@@ -19,5 +19,11 @@ ChatHeader
 }
 
 .chat-header button.leave-room {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
   border-radius: 0;
 }
