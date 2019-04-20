@@ -3,6 +3,8 @@ CSS Module
 ChangeUsername
 */
 form.change-username {
+  flex-grow: 1;
+
   align-content: center;
   align-items: center;
   height: 50px;
