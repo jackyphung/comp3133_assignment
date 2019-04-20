@@ -40,14 +40,14 @@ class ChatRoom extends Component {
   }
 
   setNewMessage = (e) => {
-    this.setState({ newMessage: e.target.value.trim() });
+    this.setState({ newMessage: e.target.value });
   }
 
   sendMessage = (e) => {
     e.preventDefault();
     if (this.state.newMessage.length) {
       this.socket.emit('new_message', {
-        message: this.state.newMessage
+        message: this.state.newMessage.trim()
       });
       console.log("Message sent!");
 
