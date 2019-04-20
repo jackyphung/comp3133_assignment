@@ -27,8 +27,9 @@ class AdminView extends Component {
     history: [],
     rooms: [],
     tabPage: [0, 0, 0],
-    rowsPerPage: 50,
+    rowsPerPage: 25,
     rowsPerPageOptions: [10, 25, 50, 100],
+    search: '',
     addRoom: false,
     showModal: false,
     activeTab: 0,
@@ -49,6 +50,21 @@ class AdminView extends Component {
       if (activeTab === 2)
         this.getRooms();
     }
+  }
+
+  handleActiveTab = (event, value) => {
+    this.setState({ activeTab: value, rowsPerPage: 25 });
+  }
+
+  getTabName = (tab = null) => {
+    const { activeTab } = this.state;
+    let tabNames = [
+      "Event History",
+      "Chat History",
+      "Rooms"
+    ]
+
+    return tabNames[tab ? tab : activeTab];
   }
 
   getEvents = () => {
@@ -101,10 +117,6 @@ class AdminView extends Component {
       });
   }
 
-  handleActiveTab = (event, value) => {
-    this.setState({ activeTab: value, rowsPerPage: 50 });
-  }
-
   showAddRoom = () => {
     this.setState({ addRoom: !this.state.addRoom })
   }
@@ -134,15 +146,39 @@ class AdminView extends Component {
     this.setState({ rowsPerPage: e.target.value });
   }
 
-  render() {
-    const { showModal, activeTab, addRoom, tabPage, rowsPerPage, rowsPerPageOptions } = this.state;
+  handleSearchInput = (e) => {
+    this.setState({ search: e.target.value });
+  }
 
-    console.log(tabPage);
-    console.log(activeTab);
+  getSearchResults = (arr) => {
+    const { search } = this.state;
+    if (search.length > 0)
+      arr = arr.filter((item) => {
+        const regex = new RegExp(search.trim(), 'i');
+        if (search.trim() == "")
+          return true;
+        for (let key in item) {
+          if (regex.test(item[key] instanceof Date ? item[key].toISOString() : item[key]))
+            return true;
+        }
+        return false;
+      });
+
+    return arr;
+  }
+
+  render() {
+    const { showModal, events, history, rooms, activeTab, search, addRoom, tabPage, rowsPerPage, rowsPerPageOptions } = this.state;
 
     return (
       <ContentArea id="admin-panel" footer={false}>
-          <ContentBlock>
+          <ContentBlock className="search-bar d-flex padding-15">
+            <input className="w-grow"
+              type="text" placeholder={`Search ${this.getTabName()}`} 
+              value={search} onChange={this.handleSearchInput}
+            />
+          </ContentBlock>
+          <ContentBlock className="tabs">
             <Tabs 
               variant="scrollable"
               scrollButton="on"
@@ -150,9 +186,9 @@ class AdminView extends Component {
               indicatorColor="primary"
               textColor="primary"
               onChange={this.handleActiveTab}>
-              <Tab label="Event History" />
-              <Tab label="Chat History" />
-              <Tab label="Rooms" />
+              <Tab label={this.getTabName(0)} />
+              <Tab label={this.getTabName(1)} />
+              <Tab label={this.getTabName(2)} />
             </Tabs>
           </ContentBlock>
           { activeTab === 0 && 
@@ -167,8 +203,8 @@ class AdminView extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                { this.state.events.length > 0 && 
-                  this.state.events
+                { events.length > 0 && 
+                  this.getSearchResults(events)
                     .slice(tabPage[activeTab] * rowsPerPage, (tabPage[activeTab] * rowsPerPage) + rowsPerPage)
                     .map(row => 
                       <TableRow>
@@ -183,7 +219,7 @@ class AdminView extends Component {
                 <TableFooter>
                   <TablePagination 
                     component={TableCell}
-                    count={this.state.events.length}
+                    count={this.getSearchResults(events).length}
                     page={tabPage[activeTab]}
                     rowsPerPage={rowsPerPage}
                     rowsPerPageOptions={rowsPerPageOptions}
@@ -206,8 +242,8 @@ class AdminView extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  { this.state.history.length > 0 &&
-                    this.state.history
+                  { history.length > 0 &&
+                    this.getSearchResults(history)
                       .slice(tabPage[activeTab] * rowsPerPage, (tabPage[activeTab] * rowsPerPage) + rowsPerPage)
                       .map(row => 
                         <TableRow>
@@ -223,7 +259,7 @@ class AdminView extends Component {
                   <TablePagination 
                     component={TableCell}
                     page={tabPage[activeTab]}
-                    count={this.state.history.length}
+                    count={this.getSearchResults(history).length}
                     rowsPerPage={rowsPerPage}
                     rowsPerPageOptions={rowsPerPageOptions}
                     onChangePage={this.changePage}
@@ -247,13 +283,12 @@ class AdminView extends Component {
                   <TableRow>
                     <TableCell>Room</TableCell>
                     <TableCell>Status</TableCell>
-                    <TableCell>Messages</TableCell>
+                    <TableCell colSpan={2}>Messages</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {
-                    this.state.rooms.length > 0 &&
-                    this.state.rooms
+                  { rooms.length > 0 &&
+                    this.getSearchResults(rooms)
                       .slice(tabPage[activeTab] * rowsPerPage, (tabPage[activeTab] * rowsPerPage) + rowsPerPage)
                       .map((row, index) => (
                         <TableRow>
@@ -283,7 +318,7 @@ class AdminView extends Component {
                   <TablePagination 
                     component={TableCell}
                     page={tabPage[activeTab]}
-                    count={this.state.rooms.length}
+                    count={this.getSearchResults(rooms).length}
                     rowsPerPage={rowsPerPage}
                     rowsPerPageOptions={rowsPerPageOptions}
                     onChangePage={this.changePage}

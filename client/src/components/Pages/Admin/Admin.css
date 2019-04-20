@@ -6,16 +6,24 @@ Admin
   word-break: break-word;
 }
 
+#admin-panel div.content-block.search-bar {
+  background: rgba(230, 230, 230, 1.0);
+}
+
 #admin-panel .content-block > button {
   border-radius: 0;
 }
 
-#admin-panel td button {
+#admin-panel div.content-block.tabs {
+  background: rgba(240, 240, 240);
+}
+
+#admin-panel div[class*='MuiTablePagination-actions'] button {
   min-width: initial;
   background: initial;
 }
 
-#admin-panel td button:hover {
+#admin-panel div[class*='MuiTablePagination-actions'] button:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
