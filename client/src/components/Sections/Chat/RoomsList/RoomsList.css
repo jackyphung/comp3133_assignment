@@ -10,6 +10,18 @@ RoomsList
   overflow-y: overlay;
 }
 
+#rooms .loading {
+  text-align: center;
+}
+
+#rooms .loading h3 {
+  font-weight: 400;
+}
+
+#rooms .loading > div > div {
+  background-color: rgba(160, 160, 160, 1.0);
+}
+
 .room {
   cursor: pointer;
 

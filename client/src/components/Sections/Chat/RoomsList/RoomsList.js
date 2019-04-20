@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter} from 'Layout';
 import classnames from 'classnames';
+import { PulseLoader } from 'react-spinners';
 import './RoomsList.css';
 
 import axios from 'axios';
@@ -11,7 +12,7 @@ class RoomsList extends Component {
   }
 
   state = {  
-    rooms: []
+    rooms: null
   }
 
   componentDidMount() {
@@ -19,7 +20,7 @@ class RoomsList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.rooms.length === 0)
+    if (prevState.rooms === null)
       this.getRooms();
   }
 
@@ -32,9 +33,9 @@ class RoomsList extends Component {
           roomlist.push({
             name: row.room
           });
-
-          this.setState({ rooms: roomlist });
         });
+
+        this.setState({ rooms: roomlist });
       });
   }
 
@@ -56,11 +57,19 @@ class RoomsList extends Component {
           <h4>Please select a room:</h4>
         </ModalHeader>
         <ModalBody>
-          { rooms.length ?
-              rooms.map(room => 
-                <div key={room.name} id={room.name} className="room" onClick={changeRoom}>{room.name}</div>
-              )
-            : <h3 className="center-absolute">There are currently no active chat rooms.</h3>
+          { rooms ?
+              rooms.length ?
+                rooms.map(room => 
+                  <div key={room.name} id={room.name} className="room" onClick={changeRoom}>{room.name}</div>
+                )
+              : <h3 className="center-absolute">There are currently no active chat rooms.</h3>
+            : <div className="loading center-absolute">
+                <h3>
+                  Hi there! We are finding some rooms for you.
+                  <br/>This will take a moment...
+                </h3>
+                <PulseLoader />
+              </div>
           }
         </ModalBody>
       </Modal>
