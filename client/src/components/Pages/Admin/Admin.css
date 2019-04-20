@@ -5,3 +5,20 @@ Admin
 #admin-panel td {
   word-break: break-word;
 }
+
+#admin-panel .content-block > button {
+  border-radius: 0;
+}
+
+#admin-panel td button {
+  min-width: initial;
+  background: initial;
+}
+
+#admin-panel td button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#admin-panel div[class*='MuiTablePagination-actions'] {
+  padding: 0 25px;
+}
