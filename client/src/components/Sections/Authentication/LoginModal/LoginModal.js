@@ -66,7 +66,7 @@ class LoginModal extends Component {
           
           <ModalBody className="d-flex">
             <FormGroup id="username-input">
-              <label>Username or Email Address</label>
+              <label>Username</label>
               <input id="username" name="username" type="text" value={username} onChange={(e) => { this.setState({ username: e.target.value }) }}/>
             </FormGroup>
             <FormGroup id="password-input">
