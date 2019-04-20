@@ -8,6 +8,8 @@ import { LoginModal } from 'Sections';
 import history from 'History';
 import './LoginButton.css';
 
+import { ExitToAppSharp } from '@material-ui/icons';
+
 class LoginButton extends Component {
   constructor(props) {
     super(props);
@@ -36,13 +38,19 @@ class LoginButton extends Component {
     const { auth, label, Header, setLoginState } = this.props;
     const { showModal, user_data } = this.state;
 
-    let LinkLabel = user_data ? "Sign Out"
+    let LinkLabel = user_data ? 
+      <span className="d-flex" style={{ alignItems: "center", alignContent: "center" }}>
+        <ExitToAppSharp />
+        <span className="d-inline-block" style={{ marginLeft: "5px" }}>Log Out</span>
+      </span>
       : label ? label : "Sign In";
 
     return (  
       <React.Fragment>
         { user_data ? 
-             <NavLink PageName={LinkLabel} onClick={(e) => { setLoginState({ user_data: null }, () => history.replace('')) } }/>
+             <NavLink onClick={(e) => { setLoginState({ user_data: null }, () => history.replace('')) } }>
+                {LinkLabel}
+             </NavLink>
           :  <NavLink PageName={LinkLabel} onClick={this.toggleModal}/>
         }
         { user_data == null && 
