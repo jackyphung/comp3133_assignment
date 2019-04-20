@@ -7,6 +7,7 @@ import { ContentBody, ContentArea, ContentBlock } from 'Layout';
 import { FooterContent, ChatRoom, RoomsList } from 'Sections';
 import { socket } from 'services/socket-io'
 import './Chat.css';
+import { ChatHeader } from '../../Sections/Chat/ChatRoom';
 
 class Chat extends Component {
 	constructor(props) {
@@ -47,6 +48,15 @@ class ChatView extends Component {
 		});
 	}
 
+	/* This is the function used for joining & changing rooms  */
+	changeRoom = () => {
+
+	}
+
+	leaveRoom = () => {
+
+	}
+
 	render() {
 		const { username, showRoomList, toggleRoomList } = this.props;
 		const { showModal } = this.state;
@@ -54,17 +64,10 @@ class ChatView extends Component {
 		return (
 			<React.Fragment>
 				<ContentArea footer={false}>
-					<ContentBlock className="chat-header">
-						<h1>Super Chat</h1>
-						<section className="options">
-							<div className="right">
-								<button className="leave-room" type="button">Leave Room</button>
-							</div>
-						</section>
-					</ContentBlock>
+					<ChatHeader leave={this.leaveRoom} />
 					<ChatRoom username={username}/>
 				</ContentArea>
-				<RoomsList show={showRoomList || showModal} toggle={toggleRoomList || this.toggleModal} fade/>
+				<RoomsList show={showRoomList || showModal} toggle={toggleRoomList || this.toggleModal} changeRoom={this.changeRoom} fade/>
 			</React.Fragment>
 		);
 	}

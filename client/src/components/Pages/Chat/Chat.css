@@ -1,12 +1,4 @@
 /*
 CSS Module
-HomeFeed
+Chat
 */
-.chat-header > h1 {
-  text-align: center;
-  font-family: Comfortaa;
-}
-
-.chat-header button.leave-room {
-  border-radius: 0;
-}

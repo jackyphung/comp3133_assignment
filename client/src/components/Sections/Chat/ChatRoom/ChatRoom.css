@@ -3,7 +3,7 @@ CSS Module
 ChatRoom
 */
 .chatroom {
-  height: calc(60vh - 50px);
+  height: calc(100vh - 235px);
   overflow-y: overlay;
 }
 

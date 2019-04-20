@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ContentBlock } from 'Layout';
-import { ChatMessages } from 'Sections';
+import { ChatMessages, ChatConnectionIndicator, ChatTypingIndicator } from 'Sections';
 import './ChatRoom.css';
 
 import { socket } from 'services/socket-io';
@@ -51,8 +51,8 @@ class ChatRoom extends Component {
     return (
       <React.Fragment>
         <ContentBlock className="chatroom d-flex">
-          <section id="typing-feedback"></section>
-          <section id="connect-feedback"></section>
+          <ChatTypingIndicator />
+          <ChatConnectionIndicator />
           <ChatMessages messages={messages}/>
         </ContentBlock>
         <ContentBlock className="chat-input">

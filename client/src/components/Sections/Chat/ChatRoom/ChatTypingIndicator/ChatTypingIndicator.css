@@ -1,0 +1,23 @@
+/*
+CSS Module
+ChatTypingIndicator
+*/
+.typing-indicator {
+  position: sticky;
+  top: 0; left: 0;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.typing-indicator > p {
+  position: relative;
+  margin-top: 0;
+  padding: .75rem 1.25rem;
+  
+  color: #0c5460;
+  background-color: rgba(209, 236, 241, 0.9);
+  border: 1px solid transparent;
+  border-color: #bee5eb;
+  border-radius: .25rem;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.075);
+}
