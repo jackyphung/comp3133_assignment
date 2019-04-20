@@ -11,7 +11,7 @@ import { Chat, NotFound, Admin } from 'Pages';
 import { LoginButton, ChangeUsername } from 'Sections';
 
 import { withStyles } from '@material-ui/core/styles';
-import { KeyboardBackspace } from '@material-ui/icons';
+import { KeyboardBackspace, List, Settings } from '@material-ui/icons';
 
 import { socket } from 'services/socket-io';
 
@@ -93,8 +93,18 @@ class App extends Component {
             <NavSection align="right">
               {!history.location.pathname.startsWith("/admin") &&
                 <React.Fragment>
-                  <NavLink PageName="Room List" onClick={this.toggleRoomList}/>
-                  {user_data && <NavLink Url="/admin" PageName="Admin Panel"/>}
+                  <NavLink onClick={this.toggleRoomList}>
+                    <span className="d-flex" style={{ alignItems: "center", alignContent: "center" }}>
+                      <List/><span className="d-inline-block" style={{ marginLeft: "5px" }}>Room List</span>
+                    </span>
+                  </NavLink>
+                  {user_data && 
+                    <NavLink Url="/admin">
+                      <span className="d-flex" style={{ alignItems: "center", alignContent: "center" }}>
+                        <Settings/><span className="d-inline-block" style={{ marginLeft: "5px" }}>Admin Panel</span>
+                      </span>
+                    </NavLink>
+                  }
                 </React.Fragment>
               }
               <LoginButton Header="Administrative Access" user_data={user_data} setLoginState={this.setLoginState} location={history.location} label="Administrator Login"/>
