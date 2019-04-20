@@ -43,19 +43,6 @@ NavBar
   transition: all ease-in 0.2s;
 }
 
-.navbar-section {
-  margin: 0;
-
-  flex-basis: 100%;
-  min-width: 100%; max-width: 100%;
-  min-height: 100%; max-height: 100%;
-
-  line-height: 50px;
-  vertical-align: middle;
-
-  text-align: right;
-}
-
 .navbar-body .nav-link {
   background: rgb(45,45,45);
 

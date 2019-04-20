@@ -17,7 +17,7 @@ class NavSection extends Component {
 	render() {
     const { id, className, style, children, align } = this.props;
 		return (
-			<div className={`navbar-section ${align ? ` ${align}` : ``}${className ? ` ${className}` : ``}`}>
+			<div className={`navbar-section${align ? ` ${align}` : ``}${className ? ` ${className}` : ``}`}>
 				{children}
 			</div>
 		);
