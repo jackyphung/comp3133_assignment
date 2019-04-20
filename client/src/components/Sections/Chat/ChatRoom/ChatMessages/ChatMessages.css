@@ -10,7 +10,8 @@
 
 .chatroom .message-user {
   flex-basis: 12%;
-  min-width: 12%;
+  width: 12%;
+  max-width: 200px;
 
   text-align: right;
   text-overflow: ellipsis;
