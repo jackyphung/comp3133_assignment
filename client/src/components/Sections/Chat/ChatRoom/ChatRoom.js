@@ -57,7 +57,8 @@ class ChatRoom extends Component {
         </ContentBlock>
         <ContentBlock className="chat-input">
           <form className="d-flex w-10" onSubmit={this.sendMessage}>
-            <input className="message-input" name="message" type="text" onChange={this.setNewMessage}/>
+            <input className="message-input" name="message" type="text" 
+              onChange={this.setNewMessage} autoComplete="off"/>
             <button className="send-message" type="submit">Send</button>
           </form>
         </ContentBlock>
