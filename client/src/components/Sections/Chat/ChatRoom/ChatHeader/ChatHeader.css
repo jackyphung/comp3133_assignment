@@ -7,6 +7,13 @@ ChatHeader
 }
 
 .chat-header > h1 {
+  margin: 0;
+  padding-block-start: 0.67em;
+  padding-block-end: 0.67em;
+
+  background: rgba(251, 249, 255, 1.0);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
   text-align: center;
   font-family: Comfortaa;
 }

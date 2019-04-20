@@ -14,12 +14,12 @@ class ChatHeader extends Component {
   render() {
     return (
       <ContentBlock className="chat-header">
-        <h1>Super Chat</h1>
         <section className="options">
           <div className="right">
             <button className="leave-room" type="button">Leave Room</button>
           </div>
         </section>
+        <h1>Super Chat</h1>
       </ContentBlock>
     )
   }
