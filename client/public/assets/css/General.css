@@ -189,6 +189,18 @@ textarea:active, select:active {
   color: rgb(0, 0, 0);
 }
 
+input:not([type=button]):not([type=checkbox]):not([type=submit]):disabled,
+input:not([type=button]):not([type=checkbox]):not([type=submit]):disabled:hover,
+input:not([type=button]):not([type=checkbox]):not([type=submit]):disabled:focus,
+input:not([type=button]):not([type=checkbox]):not([type=submit]):disabled:active {
+  background: rgba(230, 230, 230, 1.0);
+  color: rgba(150, 150, 150, 1.0);
+}
+
+input:not([type=button]):not([type=checkbox]):not([type=submit]):disabled::placeholder {
+  color: rgba(150, 150, 150, 1.0);
+}
+
 button, input[type=button], input[type=submit] {
   cursor: pointer;
 
@@ -212,4 +224,15 @@ button:focus, input[type=button]:focus {
 
 button:active, input[type=button]:active, input[type=submit]:active {
   background: rgb(215, 215, 215);
+}
+
+button:disabled, input[type=button]:disabled, 
+input[type=submit]:disabled, button:disabled:hover, button:disabled:focus, 
+input[type=button]:disabled:hover, input[type=button]:disabled:focus, 
+input[type=submit]:disabled:hover, input[type=submit]:disabled:focus,
+input[type=submit]:disabled:active, input[type=submit]:disabled:active, 
+button:disabled:active {
+  cursor: not-allowed;
+  background: rgb(210, 210, 210);
+  color: rgb(150, 150, 150);
 }
