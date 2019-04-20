@@ -16,7 +16,8 @@ ChatRoom
 .chat-input {
   padding: 15px;
   
-  background-color: rgba(240, 240, 240, 1.0);
+  background: rgba(240, 240, 240, 1.0);
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .chat-input input:not([type=button]).message-input {
