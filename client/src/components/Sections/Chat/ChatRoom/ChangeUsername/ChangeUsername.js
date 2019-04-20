@@ -35,7 +35,8 @@ class ChangeUsername extends Component {
     const { username } = this.state;
     return (
       <form className="change-username d-flex" onSubmit={this.changeUsername}>
-        <input className="username" name="chat-username" type="text" placeholder="Username" value={username} onChange={this.handleInput}/>
+        <input className="username" name="chat-username" type="text" placeholder="Username" value={username} 
+          onChange={this.handleInput} autoComplete="off"/>
         <button className="send-username" type="submit">Set Username</button>
       </form>
     );
