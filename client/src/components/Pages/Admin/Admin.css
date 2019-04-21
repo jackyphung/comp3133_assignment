@@ -6,6 +6,19 @@ Admin
   word-break: break-word;
 }
 
+#admin-panel .content-block > button {
+  border-radius: 0;
+}
+
+#admin-panel td button {
+  min-width: initial;
+  background: initial;
+}
+
+#admin-panel td button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
 #admin-panel tbody tr:nth-child(2n+1) {
   background: rgba(245, 245, 245, 1.0);
 }
@@ -21,10 +34,6 @@ Admin
 
 #admin-panel div.content-block.search-bar {
   background: rgba(230, 230, 230, 1.0);
-}
-
-#admin-panel .content-block > button {
-  border-radius: 0;
 }
 
 #admin-panel div.content-block.tabs {
