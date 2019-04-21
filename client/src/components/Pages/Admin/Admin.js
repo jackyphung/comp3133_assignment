@@ -33,7 +33,11 @@ class AdminView extends Component {
     addRoom: false,
     showModal: false,
     activeTab: 0,
-    newName: ''
+    newName: '',
+    newStatus: 'active',
+    roomEditIndex: null,
+    updatedName: '',
+    upsatedStatus: ''
   }
 
   componentDidMount() {
@@ -122,15 +126,24 @@ class AdminView extends Component {
   }
 
   showEditRoom = (e) => {
-    let index = e.target.id;
-    console.log("attempted to make edit available...");
+    let index, roomEditIndex;
+    index = e.target.id ? e.target.id : this.state.roomEditIndex;
+    roomEditIndex = this.state.roomEditIndex;
     const { rooms } = this.state;
     let updatedRooms = rooms;
+    if (roomEditIndex && index !== roomEditIndex) {
+      updatedRooms[roomEditIndex].edit = !updatedRooms[roomEditIndex].edit;
+    }
     updatedRooms[index].edit = !updatedRooms[index].edit
-    this.setState({ rooms: updatedRooms });
+    this.setState({ 
+      rooms: updatedRooms, 
+      updatedName: updatedRooms[index].name,
+      updatedStatus: updatedRooms[index].status, 
+      roomEditIndex: index == roomEditIndex ? null : index 
+    });
   }
 
-  handleNameChange = (e) => {
+  handleNewName = (e) => {
     this.setState({ newName: e.target.value });
   }
 
@@ -140,7 +153,79 @@ class AdminView extends Component {
     tabPage[activeTab] = page;
     this.setState({ tabPage: tabPage });
   }
+  
+  handleNewStatus = (e) => {
+    this.setState({ newStatus: e.target.value })
+  }
 
+  handleUpdatedName = (e) => {
+    this.setState({ updatedName: e.target.value });
+  }
+
+  handleUpdatedStatus = (e) => {
+    this.setState({ updatedStatus: e.target.value })
+  }
+
+  deleteRoom = (e) => {
+    let room = this.state.rooms[e.target.id].name
+    axios.post(`${location.protocol}//${location.hostname}:${location.port}/api/history/delete`, { room })
+    .then(res => { 
+      console.log(res);
+      this.getRooms();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
+  submitEditRoom = (e) => {
+
+    let index = this.state.roomEditIndex;
+    let currentRoom = this.state.rooms[index]
+
+    let oldName = currentRoom.name
+    let newName = this.state.updatedName.trim() ? this.state.updatedName : oldName
+    let status = this.state.updatedStatus
+
+    if (newName != oldName || status != currentRoom.status) {
+      let room = {
+        oldRoom: oldName, 
+        room: newName, 
+        status
+      }
+  
+      axios.post(`${location.protocol}//${location.hostname}:${location.port}/api/history/update`, room)
+        .then(res => { 
+          console.log(res);
+          this.getRooms();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+  
+        this.setState({ updatedName: '',  updatedStatus: '' })
+    }
+  }
+
+  submitAddRoom = () => {
+    if (this.state.newName.trim()) {
+
+      let room = {
+        room: this.state.newName,
+        status: this.state.newStatus
+      }
+  
+      axios.post(`${location.protocol}//${location.hostname}:${location.port}/api/history/create`, room)
+        .then(res => {
+          console.log(res);
+          this.getRooms();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      this.setState({ newName: '' , newStatus: 'active', addRoom: false })
+    }
+  }
 
   changeRowsPerPage = (e) => {
     this.setState({ rowsPerPage: e.target.value });
@@ -271,13 +356,6 @@ class AdminView extends Component {
           }
           { activeTab === 2 &&
             <ContentBlock>
-              <button onClick={this.showAddRoom}>{ addRoom ? "Close" : "Add Room" }</button>
-              { addRoom && 
-                <ContentBlock>
-                  <input type="text" placeholder="Room Name"></input>
-                  <button>Add</button>
-                </ContentBlock>
-              }
             <Table>
                 <TableHead>
                   <TableRow>
@@ -291,29 +369,54 @@ class AdminView extends Component {
                     this.getSearchResults(rooms)
                       .slice(tabPage[activeTab] * rowsPerPage, (tabPage[activeTab] * rowsPerPage) + rowsPerPage)
                       .map((row, index) => (
-                        <TableRow>
-                          <TableCell>{row.name}</TableCell>
-                          <TableCell>{row.status}</TableCell>
+                        row.edit ? 
+                        <TableRow key={index}>
+                          <TableCell>
+                            <input id='editRoomName' type="text" placeholder="Room Name" 
+                              value={this.state.updatedName} onChange={this.handleUpdatedName} />
+                          </TableCell>
+                          <TableCell>
+                            <select value={this.state.updatedStatus} onChange={this.handleUpdatedStatus}>
+                              <option value="active">Active</option>
+                              <option value="inactive">Inactive</option>
+                            </select>
+                          </TableCell>
                           <TableCell>{row.messages}</TableCell>
                           <TableCell>
-                            <button id={index} onClick={this.showEditRoom}>{ row.edit ? "Close" : "Edit Room" }</button> 
-                            { row.edit && 
-                              <React.Fragment>
-                                <input type="text" placeholder="Room Name" value={this.state.newName} onChange={this.handleNameChange} id='roomName'></input>
-                                <br/>
-                                Status: <select value={row.status} id='roomStatus'>
-                                          <option value="active">Active</option>
-                                          <option value="inactive">Inactive</option>
-                                        </select>
-                                <br/>
-                                <button >Edit</button>
-                              </React.Fragment> 
-                            }
+                            <button onClick={this.submitEditRoom}>Save</button>
+                            <button onClick={this.showEditRoom}>Cancel</button> 
                           </TableCell>
                         </TableRow>
+                      :
+                      <TableRow key={index}>
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell>{row.status}</TableCell>
+                        <TableCell>{row.messages}</TableCell>
+                        <TableCell>
+                          <button id={index} onClick={this.showEditRoom}>Edit</button> 
+                          <button id={index} onClick={this.deleteRoom}>Delete</button> 
+                        </TableCell>
+                      </TableRow>
                       ))
                   }
+                  { this.state.addRoom &&
+                      <TableRow>
+                      <TableCell><input type="text" placeholder="Room Name" value={this.state.newName} onChange={this.handleNewName} /></TableCell>
+                      <TableCell colSpan={2}>
+                        <select value={this.state.newStatus} onChange={this.handleNewStatus}>
+                          <option value="active">Active</option>
+                          <option value="inactive">Inactive</option>
+                        </select>
+                      </TableCell>
+                      <TableCell><button onClick={this.submitAddRoom}>Create</button></TableCell> 
+                      </TableRow>
+                  }
                 </TableBody>
+                <TableRow>
+                  <TableCell colSpan={4}>
+                    <button onClick={this.showAddRoom} style={{ borderRadius: "3px" }}>{ addRoom ? "Close" : "Add Room" }</button>
+                  </TableCell>
+                </TableRow>
                 <TableFooter>
                   <TablePagination 
                     component={TableCell}

@@ -6,6 +6,15 @@ Admin
   word-break: break-word;
 }
 
+#admin-panel td button ~ button {
+  margin-top: 5px;
+}
+
+#admin-panel td input,
+#admin-panel td select  {
+  width: 100%;
+}
+
 #admin-panel div.content-block.search-bar {
   background: rgba(230, 230, 230, 1.0);
 }

@@ -20,13 +20,13 @@ router.get('', (req, res, next) => {
 
 router.post('', (req, res, next) => {
   res.contentType('application/json');
-  if (req.body.roomname) {
+  if (req.body.room) {
     console.log('get list of rooms')
-    History.findOne({ room: req.body.roomname }, (err, hist) => {
+    History.findOne({ room: req.body.room }, (err, hist) => {
       if (err)
         throw err
       if (hist == null)
-        res.send(JSON.stringify({ message: `The room "${req.body.roomname}" does not exist in the database` }));
+        res.send(JSON.stringify({ message: `The room "${req.body.room}" does not exist in the database` }));
       else 
         res.send(JSON.stringify(hist))
     })
@@ -37,15 +37,18 @@ router.post('', (req, res, next) => {
 
 router.post('/create', (req, res, next) => {
   res.contentType('application/json');
-  if (req.body.roomname) {
+  let values = req.body;
+  if (values.room) {
     console.log('create room')
-    let history = History(req.body.roomname);
+    values.room = values.room.toLowerCase().replace(/\s+/g, ' ').trim();
+    values.room = values.room.replace(' ', '-');
+    let history = History({ room: values.room, status: values.status });
     history.save((err, hist) => {
       if (err) 
         throw err;
 
       if (hist == null)
-        res.send(JSON.stringify({ message: `The room "${req.body.roomname}" has not been created.` }));
+        res.send(JSON.stringify({ message: `The room "${req.body.room}" has not been created.` }));
       else
         res.send(JSON.stringify(hist))
     })
@@ -57,12 +60,33 @@ router.post('/create', (req, res, next) => {
 router.post('/update', (req, res, next) => {
   res.contentType('application/json');
   let values = req.body;
-  if (values.roomname) {
-    History.findOneAndUpdate({ room: values.roomname }, { $set: values }, { new: true }, (err, hist) => {
+  if (values.oldRoom) {
+    let oldRoom = values.oldRoom;
+    delete values.oldRoom;
+    values.room = values.room.toLowerCase().replace(/\s+/g,' ').trim();
+    History.findOneAndUpdate({ room: oldRoom }, { $set: values }, { new: true }, (err, hist) => {
       if (err)
         throw err
       if (hist == null)
-        res.send(JSON.stringify({ message: `The room "${values.roomname}" does not exist in the database` }));
+        res.send(JSON.stringify({ message: `The room "${values.room}" does not exist in the database` }));
+      else 
+        res.send(JSON.stringify(hist))
+    })
+  } else {
+    res.send(JSON.stringify({ message: "Invalid Room History Request" }));
+  }
+})
+
+router.post('/delete', (req, res, next) => {
+  res.contentType('application/json');
+  let values = req.body;
+  console.log(values)
+  if (values.room) {
+    History.findOneAndDelete({ room: values.room }, (err, hist) => {
+      if (err)
+        throw err
+      if (hist == null)
+        res.send(JSON.stringify({ message: `The room "${values.room}" could not be deleted` }));
       else 
         res.send(JSON.stringify(hist))
     })
