@@ -6,6 +6,10 @@ Admin
   word-break: break-word;
 }
 
+#admin-panel tbody tr:nth-child(2n+1) {
+  background: rgba(245, 245, 245, 1.0);
+}
+
 #admin-panel td button ~ button {
   margin-top: 5px;
 }
