@@ -15,6 +15,10 @@ Admin
   background: initial;
 }
 
+#admin-panel tbody td button {
+  padding: 5px 15px;
+}
+
 #admin-panel td button:hover {
   background: rgba(0, 0, 0, 0.05);
 }
@@ -23,7 +27,7 @@ Admin
   background: rgba(245, 245, 245, 1.0);
 }
 
-#admin-panel td button ~ button {
+#admin-panel tbody td button ~ button {
   margin-top: 5px;
 }
 
