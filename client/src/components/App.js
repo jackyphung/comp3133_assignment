@@ -99,7 +99,7 @@ class App extends Component {
                     </span>
                   </NavLink>
                   {user_data && 
-                    <NavLink Url="/admin">
+                    <NavLink Url="/admin" onClick={this.forceStateUpdate}>
                       <span className="d-flex" style={{ alignItems: "center", alignContent: "center" }}>
                         <Settings/><span className="d-inline-block" style={{ marginLeft: "5px" }}>Admin Panel</span>
                       </span>
