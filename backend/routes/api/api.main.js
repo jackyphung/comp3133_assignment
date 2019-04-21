@@ -33,6 +33,8 @@ router.post('', (req, res, next) => {
       authInfo.authToken = Auth.generateToken(payload, authType);
       res.send(JSON.stringify(authInfo));
       console.log(`[EVENT] ${authInfo.username} has logged in.`);
+    } else {
+      res.send(JSON.stringify({ message: "Invalid Credentials" }));
     }
   });
 });

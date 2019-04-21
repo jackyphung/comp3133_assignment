@@ -15,7 +15,8 @@ class LoginModal extends Component {
 
   state = { 
     auth: this.props.auth ? this.props.auth : null,
-    username: ""
+    username: "",
+    error: false
   }
 
   componentDidMount() { }
@@ -43,18 +44,24 @@ class LoginModal extends Component {
         { username: username, password: password })
       .then((response) => {
         console.log(response);
-        if (response.data._id)
+        if (response.data._id) {
           this.props.setLoginState({ user_data: response.data }, () => {
             history.replace("/admin");
             this.props.toggle();
+            this.setState({ error: false });
           });
+        }
+        
+        else {
+          this.setState({ error: true });
+        }
       });
     }
   }
 
   render() {
     const { id, className, children, style, show, toggle, Header } = this.props;
-    const { username } = this.state;
+    const { username, error } = this.state;
     return (
       <Modal id={"login-modal"} show={show} toggle={toggle}>
         <form method="POST" onSubmit={this.handleSignIn}>
@@ -65,11 +72,11 @@ class LoginModal extends Component {
           <ModalBody className="d-flex">
             <FormGroup id="username-input">
               <label>Username</label>
-              <input id="username" name="username" type="text" value={username} onChange={(e) => { this.setState({ username: e.target.value }) }}/>
+              <input id="username" className={error ? "error" : undefined} name="username" type="text" value={username} onChange={(e) => { this.setState({ username: e.target.value, error: false }) }}/>
             </FormGroup>
             <FormGroup id="password-input">
               <label>Password</label>
-              <input id="password" name="password" type="password"/>
+              <input id="password" className={error ? "error" : undefined} name="password" type="password" onChange={(e) => { this.setState({ error: false }) }}/>
             </FormGroup>
           </ModalBody>
           

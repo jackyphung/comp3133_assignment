@@ -20,3 +20,8 @@ LoginModal
 #login-modal button.sign-in {
   text-transform: uppercase;
 }
+
+#login-modal input:not([type=button]):not([type=checkbox]).error {
+  border-color: rgba(255, 0, 0, 0.4);
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
