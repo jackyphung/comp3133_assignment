@@ -68,7 +68,7 @@ class AdminView extends Component {
       "Rooms"
     ]
 
-    return tabNames[tab ? tab : activeTab];
+    return tabNames[tab !== null ? tab : activeTab];
   }
 
   getEvents = () => {
