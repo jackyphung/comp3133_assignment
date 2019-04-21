@@ -1,6 +1,6 @@
 import openSocket from 'socket.io-client';
 import { clearTimeout } from 'timers';
-export const socket = openSocket(`${location.protocol}//${location.hostname}:${process.env.PORT || 8000 }/`);
+export const socket = openSocket(`${location.protocol}//${location.hostname}:${location.port}/`);
 
 class SocketIO {
   current_room = ""
